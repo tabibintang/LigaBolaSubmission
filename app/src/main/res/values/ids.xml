@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="team_image" type="id" />
+    <item name="team_name" type="id" />
+    <item name="club_list" type="id" />
+    <item name="second_team_name" type="id" />
+    <item name="second_team_image" type="id" />
+    <item name="second_team_description" type="id" />
+</resources>
