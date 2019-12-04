@@ -13,6 +13,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "BASE_URL", '"https://www.thesportsdb.com/"'
+        buildConfigField "String", "TSDB_API_KEY", '"1"'
     }
     buildTypes {
         release {
@@ -45,4 +48,6 @@ dependencies {
     implementation "org.jetbrains.anko:anko-cardview-v7:$anko_version"
 
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
 }

@@ -6,4 +6,9 @@
     <item name="second_team_name" type="id" />
     <item name="second_team_image" type="id" />
     <item name="second_team_description" type="id" />
+    <item name="league_list" type="id" />
+    <item name="detail_league_image" type="id" />
+    <item name="detail_league_name" type="id" />
+    <item name="detail_league_description" type="id" />
+    <item name="team_badge" type="id" />
 </resources>

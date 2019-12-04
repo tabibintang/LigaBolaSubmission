@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso
 import org.jetbrains.anko.*
 import org.jetbrains.anko.cardview.v7.cardView
 
-class RecyclerViewAdapter (private val context: Context,private val items:List<Tim>, private val listener: (Tim) -> Unit): RecyclerView.Adapter<ViewHolder>(){
+class RecyclerViewAdapter (private val context: Context, private val items:List<League>, private val listener: (League) -> Unit): RecyclerView.Adapter<ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder{
         return ViewHolder(TimListUI().createView(AnkoContext.create(parent.context,parent)))
@@ -60,7 +60,7 @@ class ViewHolder(containerView: View) : RecyclerView.ViewHolder(containerView){
     private val teamImage: ImageView = containerView.find(R.id.team_image)
     private val teamName: TextView = containerView.find(R.id.team_name)
 
-    fun bindItem(items:Tim, listener: (Tim)-> Unit){
+    fun bindItem(items:League, listener: (League)-> Unit){
         teamName.text = items.name
         items.image?.let { Picasso.get().load(it).fit().into(teamImage)}
         itemView.setOnClickListener { listener(items)}

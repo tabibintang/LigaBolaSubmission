@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">LigaBola</string>
-    <string-array name="club_name">
+    <string-array name="league_name">
         <item>English Premier League</item>
         <item>French Ligue 1</item>
         <item>German Bundesliga</item>
@@ -13,7 +13,7 @@
         <item>English League 1</item>
     </string-array>
 
-    <string-array name="club_image">
+    <string-array name="league_image">
         <item>@drawable/english_premier_league</item>
         <item>@drawable/french_ligue_1</item>
         <item>@drawable/german_bundesliga</item>
@@ -26,7 +26,7 @@
         <item>@drawable/english_league_1</item>
     </string-array>
 
-    <string-array name="club_description">
+    <string-array name="league_description">
         <item>The Premier League (often referred to as the English Premier League (EPL) outside England), is the top level of the English football league system. Contested by 20 clubs, it operates on a system of promotion and relegation with the English Football League (EFL).
             The Premier League is a corporation in which the member clubs act as shareholders. Seasons run from August to May with each team playing 38 matches (playing each other home and away). Most games are played on Saturday and Sunday afternoons. The Premier League has featured 47 English and two Welsh clubs since its inception, making it a cross-border league.
             The competition was formed as the FA Premier League on 20 February 1992 following the decision of clubs in the Football League First Division to break away from the Football League, founded in 1888, and take advantage of a lucrative television rights deal. The deal was worth £1 billion a year domestically as of 2013–14, with BSkyB and BT Group securing the domestic rights to broadcast 116 and 38 games respectively. The league generates €2.2 billion per year in domestic and international television rights. In 2014–15, teams were apportioned revenues of £1.6 billion, rising sharply to £2.4 billion in 2016–17.
