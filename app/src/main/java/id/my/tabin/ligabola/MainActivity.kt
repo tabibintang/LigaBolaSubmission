@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun initData(){
+        val id = resources.getStringArray(R.array.league_id)
         val name = resources.getStringArray(R.array.league_name)
         val image = resources.obtainTypedArray(R.array.league_image)
         val description = resources.getStringArray(R.array.league_description)
@@ -24,8 +25,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         for (i in name.indices){
             items.add(
                 League(
+                    id[i],
                     name[i],
                     image.getResourceId(i,0),
+                    null,
                     description[i]
                 )
             )
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     info("MainActivity: Item clicked")
                     debug("MainActivity: Name="+it.name)
                     debug("MainActivity: Description="+it.description)
-                    startActivity<DetailActivity>("tim" to it )
+                    startActivity<DetailActivity>("league" to it )
                 }
             }
         }

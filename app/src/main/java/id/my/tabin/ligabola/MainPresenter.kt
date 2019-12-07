@@ -22,4 +22,18 @@ class MainPresenter(private val view: MainView,
             }
         }
     }
+    fun getDetailLeague(league: String?) {
+        view.showLoading()
+        doAsync {
+            val data = gson.fromJson(apiRepository
+                .doRequest(TheSportDBApi.getDetailLeague(league)),
+                LeagueResponse::class.java
+            )
+
+            uiThread {
+                view.hideLoading()
+                view.showDetailLeague(data.leagues)
+            }
+        }
+    }
 }

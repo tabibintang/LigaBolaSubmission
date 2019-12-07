@@ -28,6 +28,7 @@ class DetailActivity : AppCompatActivity(), AnkoLogger, MainView {
     private lateinit var spinner: Spinner
 
     private var teams: MutableList<Team> = mutableListOf()
+    private var leagues: MutableList<League> = mutableListOf()
     private lateinit var presenter: MainPresenter
     private lateinit var adapter: TeamRecyclerViewAdapter
 
@@ -93,32 +94,31 @@ class DetailActivity : AppCompatActivity(), AnkoLogger, MainView {
                     }
                 }
             }
-            //}
-
-
-            //val spinnerItems = resources.getStringArray(league_name)
-//            val spinnerAdapter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_dropdown_item, spinnerItems)
-//            spinner.adapter = spinnerAdapter
-
 
             val intent = intent
-            val tim = intent.getParcelableExtra<League>("tim")
+            val league = intent.getParcelableExtra<League>("league")
 
-            leagueName.text = tim.name
-            //leagueDescription.text = tim.description
-            tim.image!!.let { Picasso.get().load(it).fit().into(leagueImage) }
+
+            val request = ApiRepository()
+            val gson = Gson()
+
+            presenter = MainPresenter(this, request, gson)
+
+            presenter.getDetailLeague(league.id)
+//
+//            leagueName.text = league.name
+//            //leagueDescription.text = tim.description
+//            league.image!!.let { Picasso.get().load(it).fit().into(leagueImage) }
 
             adapter = TeamRecyclerViewAdapter(teams)
             listTeam.adapter = adapter
 
-            val request = ApiRepository()
-            val gson = Gson()
             presenter = MainPresenter(this, request, gson)
 
-            presenter.getTeamList(tim.name)
+            presenter.getTeamList(league.name)
 
             swipeRefresh.onRefresh {
-                presenter.getTeamList(tim.name)
+                presenter.getTeamList(league.name)
             }
 
         } catch (e: Exception) {
@@ -142,5 +142,10 @@ class DetailActivity : AppCompatActivity(), AnkoLogger, MainView {
         adapter.notifyDataSetChanged()
     }
 
+    override fun showDetailLeague(data: List<League>){
+        leagueName.text = data[0].name
+        //leagueDescription.text = tim.description
+        data[0].badge!!.let { Picasso.get().load(it).fit().into(leagueImage) }
+    }
 }
 
