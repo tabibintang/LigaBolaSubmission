@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_group_team"
+        android:icon="@drawable/ic_group_black_24dp"
+        android:title="Detail" />
+
+    <item
+        android:id="@+id/navigation_next_event"
+        android:icon="@drawable/ic_skip_next_black_24dp"
+        android:title="Next Event" />
+
+    <item
+        android:id="@+id/navigation_last_event"
+        android:icon="@drawable/ic_history_black_24dp"
+        android:title="Last Event" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_search"-->
+<!--        android:icon="@android:drawable/ic_menu_search"-->
+<!--        android:title="Search" />-->
+</menu>

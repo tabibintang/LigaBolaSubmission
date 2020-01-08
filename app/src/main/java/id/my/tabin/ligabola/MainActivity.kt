@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     info("MainActivity: Item clicked")
                     debug("MainActivity: Name="+it.name)
                     debug("MainActivity: Description="+it.description)
-                    startActivity<DetailActivity>("league" to it )
+                    startActivity<LeagueDetailActivity>("league" to it )
                 }
             }
         }

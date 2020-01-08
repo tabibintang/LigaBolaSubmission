@@ -1,5 +1,6 @@
 package id.my.tabin.ligabola
 
+import android.content.res.ColorStateList
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -14,6 +15,7 @@ import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
 import id.my.tabin.ligabola.R.color.colorAccent
+import org.jetbrains.anko.design.bottomNavigationView
 import org.jetbrains.anko.support.v4.onRefresh
 
 class DetailActivity : AppCompatActivity(), AnkoLogger, MainView {
@@ -71,28 +73,41 @@ class DetailActivity : AppCompatActivity(), AnkoLogger, MainView {
 //                    }
 
                 //spinner = spinner ()
-                swipeRefresh = swipeRefreshLayout {
-                    setColorSchemeResources(
-                        colorAccent,
-                        android.R.color.holo_green_light,
-                        android.R.color.holo_orange_light,
-                        android.R.color.holo_red_light
-                    )
-
-                    relativeLayout {
-                        lparams(width = matchParent, height = wrapContent)
-
-                        listTeam = recyclerView {
-                            lparams(width = matchParent, height = wrapContent)
-                            layoutManager = LinearLayoutManager(context)
-                        }
-
-                        progressBar = progressBar {
-                        }.lparams {
-                            centerHorizontally()
-                        }
-                    }
+//                swipeRefresh = swipeRefreshLayout {
+//                    setColorSchemeResources(
+//                        colorAccent,
+//                        android.R.color.holo_green_light,
+//                        android.R.color.holo_orange_light,
+//                        android.R.color.holo_red_light
+//                    )
+//
+//                    relativeLayout {
+//                        lparams(width = matchParent, height = wrapContent)
+//
+//                        listTeam = recyclerView {
+//                            lparams(width = matchParent, height = wrapContent)
+//                            layoutManager = LinearLayoutManager(context)
+//                        }
+//
+//                        progressBar = progressBar {
+//                        }.lparams {
+//                            centerHorizontally()
+//                        }
+//                    }
+//                }
+            }
+            bottomNavigationView {
+                inflateMenu(R.menu.bottom_navigation)
+                itemBackgroundResource = R.color.colorPrimary
+                //itemTextColor = ColorStateList.valueOf(0)
+                lparams(matchParent, wrapContent) {
+                    width = matchParent
+                    height = wrapContent
+                    gravity = Gravity.BOTTOM
                 }
+//                setOnNavigationItemSelectedListener { item ->
+//                    true
+//                }
             }
 
             val intent = intent
