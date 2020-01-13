@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".DetailLeagueFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Detail League" />
+<!--    <android.support.v4.widget.SwipeRefreshLayout-->
+<!--        android:id="@+id/refresh_layout_detail"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content">-->
+        <!-- TODO: Update blank fragment layout -->
+        <ImageView
+            android:id="@+id/image_detail_league"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:scaleType="fitXY" />
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/text_detail_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Detail League" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progress_bar_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_detail_list_team"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+<!--    </android.support.v4.widget.SwipeRefreshLayout>-->
+</LinearLayout>

@@ -1,18 +1,46 @@
 package id.my.tabin.ligabola
 
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
-class LeagueDetailPagerAdapter (fragmentManager: FragmentManager, league: League) :FragmentPagerAdapter(fragmentManager){
+class LeagueDetailPagerAdapter(fragmentManager: FragmentManager, league: League) :
+    FragmentPagerAdapter(fragmentManager) {
+
+    val league = league
+
     private val pages = listOf(
         DetailLeagueFragment(),
         NextMatchFragment(),
         PrevMatchFragment()
     )
 
+    //    override fun getItem(position: Int): Fragment {
+//        return pages[position]
+//    }
     override fun getItem(position: Int): Fragment {
-        return pages[position]
+        val bundle = Bundle()
+        bundle.putParcelable("league", league)
+
+        when(position){
+            0 -> {
+                val detailLeagueFragment = DetailLeagueFragment()
+                detailLeagueFragment.arguments = bundle
+                return detailLeagueFragment
+            }
+            1 -> {
+                val nextMatchFragment = NextMatchFragment()
+                nextMatchFragment.arguments = bundle
+                return nextMatchFragment
+            }
+            2 -> {
+                val prevMatchFragment = PrevMatchFragment()
+                prevMatchFragment.arguments = bundle
+                return prevMatchFragment
+            }
+            else -> throw Throwable()
+        }
     }
 
     override fun getCount(): Int {
@@ -20,7 +48,7 @@ class LeagueDetailPagerAdapter (fragmentManager: FragmentManager, league: League
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return when(position){
+        return when (position) {
             0 -> "Detail"
             1 -> "Next Match"
             else -> "Prev Match"
