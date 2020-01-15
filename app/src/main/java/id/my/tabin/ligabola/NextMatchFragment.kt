@@ -1,14 +1,19 @@
 package id.my.tabin.ligabola
 
 
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_next_match.*
+import org.jetbrains.anko.*
 
 /**
  * A simple [Fragment] subclass.
@@ -34,11 +39,20 @@ class NextMatchFragment : Fragment(),MatchListView {
         val gson = Gson()
 
         recycler_next_list_match.layoutManager = LinearLayoutManager(context)
-        adapter = MatchRecyclerViewAdapter(events,context!!)
+        adapter = MatchRecyclerViewAdapter(events,context!!){
+            val toast = Toast.makeText(context, it.eventName, Toast.LENGTH_SHORT)
+            toast.show()
+            Log.d(TAG, "Click: $it.id")
+            val intent = Intent(context, DetailEventActivity::class.java)
+            intent.putExtra("id_match", it.id )
+            startActivity(intent)
+            //startActivity<DetailEventActivity>("id_match" to it.id )
+        }
         recycler_next_list_match.adapter = adapter
 
         presenter  = MatchListPresenter(this,request,gson)
-        presenter.getMatchList(league?.id)
+        presenter.getMatchNextList(league?.id)
+
     }
     override fun showLoading() {
         progress_bar_next.visible()
