@@ -1,6 +1,8 @@
 package id.my.tabin.ligabola
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -12,11 +14,12 @@ import org.jetbrains.anko.*
 import id.my.tabin.ligabola.R.id.team_badge
 import id.my.tabin.ligabola.R.id.team_name
 
-class TeamRecyclerViewAdapter (private val teams: List<Team>)
+class TeamRecyclerViewAdapter (private val teams: List<Team>, val context: Context)
     : RecyclerView.Adapter<TeamViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamViewHolder {
-        return TeamViewHolder(TeamUI().createView(AnkoContext.create(parent.context, parent)))
+        //return TeamViewHolder(TeamUI().createView(AnkoContext.create(parent.context, parent)))
+        return TeamViewHolder(LayoutInflater.from(context).inflate(R.layout.team_list,parent,false))
     }
 
     override fun getItemCount(): Int = teams.size
@@ -34,29 +37,29 @@ class TeamViewHolder(view: View) : RecyclerView.ViewHolder(view){
         teamName.text = teams.teamName
     }
 }
-
-class TeamUI : AnkoComponent<ViewGroup> {
-    override fun createView(ui: AnkoContext<ViewGroup>): View {
-        return with(ui) {
-            linearLayout {
-                lparams(width = matchParent, height = wrapContent)
-                padding = dip(16)
-                orientation = LinearLayout.HORIZONTAL
-
-                imageView {
-                    id = R.id.team_badge
-                }.lparams{
-                    height = dip(50)
-                    width = dip(50)
-                }
-
-                textView {
-                    id = R.id.team_name
-                    textSize = 16f
-                }.lparams{
-                    margin = dip(15)
-                }
-            }
-        }
-    }
-}
+//
+//class TeamUI : AnkoComponent<ViewGroup> {
+//    override fun createView(ui: AnkoContext<ViewGroup>): View {
+//        return with(ui) {
+//            linearLayout {
+//                lparams(width = matchParent, height = wrapContent)
+//                padding = dip(16)
+//                orientation = LinearLayout.HORIZONTAL
+//
+//                imageView {
+//                    id = R.id.team_badge
+//                }.lparams{
+//                    height = dip(50)
+//                    width = dip(50)
+//                }
+//
+//                textView {
+//                    id = R.id.team_name
+//                    textSize = 16f
+//                }.lparams{
+//                    margin = dip(15)
+//                }
+//            }
+//        }
+//    }
+//}

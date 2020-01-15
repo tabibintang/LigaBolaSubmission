@@ -7,12 +7,12 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class League(
     @SerializedName("idLeague")
-    val id:String? = null,
+    val id: String? = null,
     @SerializedName("strLeague")
-    val name:String?,
+    val name: String?,
     val image: Int?,
     @SerializedName("strBadge")
     val badge: String?,
     @SerializedName("strDescriptionEN")
-    val description:String?
+    val description: String?
 ) : Parcelable

@@ -1,42 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".DetailLeagueFragment">
 
-<!--    <android.support.v4.widget.SwipeRefreshLayout-->
-<!--        android:id="@+id/refresh_layout_detail"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content">-->
-        <!-- TODO: Update blank fragment layout -->
-        <ImageView
-            android:id="@+id/image_detail_league"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:scaleType="fitXY" />
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/image_detail_league"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_detail_name"
+    <TextView
+        android:id="@+id/text_detail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_detail_league"
+        />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/text_detail_name">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_detail_list_team"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Detail League" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ProgressBar
-                android:id="@+id/progress_bar_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_detail_list_team"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-<!--    </android.support.v4.widget.SwipeRefreshLayout>-->
-</LinearLayout>
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

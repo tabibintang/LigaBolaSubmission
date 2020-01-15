@@ -3,6 +3,7 @@ package id.my.tabin.ligabola
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,24 +33,20 @@ class DetailLeagueFragment : Fragment(), MainView {
         super.onViewCreated(view, savedInstanceState)
         val league = arguments?.getParcelable<League>("league")
 
-//        text_detail_name.text = league?.name
-//        league?.image!!.let { Picasso.get().load(it).fit().into(image_detail_league) }
-
         val request = ApiRepository()
         val gson = Gson()
 
-        presenter = MainPresenter(this, request, gson)
-
-        presenter.getDetailLeague(league?.id)
-        adapter = TeamRecyclerViewAdapter(teams)
+        recycler_detail_list_team.layoutManager = LinearLayoutManager(context)
+        adapter = TeamRecyclerViewAdapter(teams,context!!)
         recycler_detail_list_team.adapter = adapter
 
         presenter = MainPresenter(this, request, gson)
 
-        presenter.getTeamList(league?.name)
+        presenter.getDetailLeague(league?.id,league?.name)
+        //presenter.getTeamList(league?.name)
 
 //        refresh_layout_detail.onRefresh {
-//            presenter.getTeamList(league?.name)
+//            presenter.getDetailLeague(league?.id,league?.name)
 //        }
 
     }

@@ -4,35 +4,28 @@ import com.google.gson.Gson
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
-class MainPresenter(private val view: MainView,
-                    private val apiRepository: ApiRepository,
-                    private val gson: Gson
+class MainPresenter(
+    private val view: MainView,
+    private val apiRepository: ApiRepository,
+    private val gson: Gson
 ) {
-    fun getTeamList(league: String?) {
+    fun getDetailLeague(league: String?, leagueName: String?) {
         view.showLoading()
         doAsync {
-            val data = gson.fromJson(apiRepository
-                .doRequest(TheSportDBApi.getTeams(league)),
-                TeamResponse::class.java
-            )
-
-            uiThread {
-                view.hideLoading()
-                view.showTeamList(data.teams)
-            }
-        }
-    }
-    fun getDetailLeague(league: String?) {
-        view.showLoading()
-        doAsync {
-            val data = gson.fromJson(apiRepository
-                .doRequest(TheSportDBApi.getDetailLeague(league)),
+            val data = gson.fromJson(
+                apiRepository
+                    .doRequest(TheSportDBApi.getDetailLeague(league)),
                 LeagueResponse::class.java
             )
-
+            val dataTeam = gson.fromJson(
+                apiRepository
+                    .doRequest(TheSportDBApi.getTeams(leagueName)),
+                TeamResponse::class.java
+            )
             uiThread {
                 view.hideLoading()
                 view.showDetailLeague(data.leagues)
+                view.showTeamList(dataTeam.teams)
             }
         }
     }

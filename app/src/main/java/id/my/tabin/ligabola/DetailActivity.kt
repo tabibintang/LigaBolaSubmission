@@ -119,21 +119,21 @@ class DetailActivity : AppCompatActivity(), AnkoLogger, MainView {
 
             presenter = MainPresenter(this, request, gson)
 
-            presenter.getDetailLeague(league.id)
+            //presenter.getDetailLeague(league.id)
 //
 //            leagueName.text = league.name
 //            //leagueDescription.text = tim.description
 //            league.image!!.let { Picasso.get().load(it).fit().into(leagueImage) }
 
-            adapter = TeamRecyclerViewAdapter(teams)
+            //adapter = TeamRecyclerViewAdapter(teams)
             listTeam.adapter = adapter
 
             presenter = MainPresenter(this, request, gson)
 
-            presenter.getTeamList(league.name)
+            //presenter.getTeamList(league.name)
 
             swipeRefresh.onRefresh {
-                presenter.getTeamList(league.name)
+                //presenter.getTeamList(league.name)
             }
 
         } catch (e: Exception) {
