@@ -1,4 +1,4 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import com.squareup.picasso.Picasso
+import id.my.tabin.ligabola.R
+import id.my.tabin.ligabola.model.Team
 import org.jetbrains.anko.*
 
 import id.my.tabin.ligabola.R.id.team_badge
@@ -19,7 +20,11 @@ class TeamRecyclerViewAdapter (private val teams: List<Team>, val context: Conte
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamViewHolder {
         //return TeamViewHolder(TeamUI().createView(AnkoContext.create(parent.context, parent)))
-        return TeamViewHolder(LayoutInflater.from(context).inflate(R.layout.team_list,parent,false))
+        return TeamViewHolder(
+            LayoutInflater.from(
+                context
+            ).inflate(R.layout.team_list, parent, false)
+        )
     }
 
     override fun getItemCount(): Int = teams.size

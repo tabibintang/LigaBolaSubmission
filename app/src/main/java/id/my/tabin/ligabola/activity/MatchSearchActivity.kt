@@ -1,4 +1,4 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.activity
 
 import android.content.ContentValues
 import android.content.Intent
@@ -11,8 +11,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.google.gson.Gson
+import id.my.tabin.ligabola.api.ApiRepository
+import id.my.tabin.ligabola.R
+import id.my.tabin.ligabola.adapter.MatchRecyclerViewAdapter
+import id.my.tabin.ligabola.support.invisible
+import id.my.tabin.ligabola.model.Event
+import id.my.tabin.ligabola.presenter.MatchListPresenter
+import id.my.tabin.ligabola.view.MatchListView
+import id.my.tabin.ligabola.support.visible
 import kotlinx.android.synthetic.main.activity_match_search.*
-import kotlinx.android.synthetic.main.fragment_next_match.*
 
 class MatchSearchActivity : AppCompatActivity() {
 
@@ -26,14 +33,15 @@ class MatchSearchActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         recycler_search_list_match.layoutManager = LinearLayoutManager(applicationContext)
-        adapter = MatchRecyclerViewAdapter(events, this) {
-            val toast = Toast.makeText(this, it.eventName, Toast.LENGTH_SHORT)
-            toast.show()
-            Log.d(ContentValues.TAG, "Click: $it.id")
-            val intent = Intent(this, DetailEventActivity::class.java)
-            intent.putExtra("id_match", it.id)
-            startActivity(intent)
-        }
+        adapter =
+            MatchRecyclerViewAdapter(events, this) {
+                val toast = Toast.makeText(this, it.eventName, Toast.LENGTH_SHORT)
+                toast.show()
+                Log.d(ContentValues.TAG, "Click: $it.id")
+                val intent = Intent(this, DetailEventActivity::class.java)
+                intent.putExtra("id_match", it.id)
+                startActivity(intent)
+            }
         recycler_search_list_match.adapter = adapter
     }
 
@@ -49,7 +57,8 @@ class MatchSearchActivity : AppCompatActivity() {
 
     private fun searchQuery(searchView: SearchView) {
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener, MatchListView {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            MatchListView {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query.isNullOrEmpty()) {
                     hideLoading()
@@ -60,7 +69,11 @@ class MatchSearchActivity : AppCompatActivity() {
                 val gson = Gson()
 
                 Toast.makeText(applicationContext, "Searching " + query, Toast.LENGTH_SHORT).show()
-                presenter = MatchListPresenter(this, request, gson)
+                presenter = MatchListPresenter(
+                    this,
+                    request,
+                    gson
+                )
                 presenter.getMatchSearchList(query)
                 return true
             }

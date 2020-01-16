@@ -1,4 +1,4 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,9 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import id.my.tabin.ligabola.R
+import id.my.tabin.ligabola.adapter.RecyclerViewAdapter
+import id.my.tabin.ligabola.model.League
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 
@@ -30,7 +33,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 League(
                     id[i],
                     name[i],
-                    image.getResourceId(i,0),
+                    image.getResourceId(i, 0),
                     null,
                     description[i]
                 )
@@ -48,13 +51,16 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 lparams(width= matchParent, height = matchParent)
                 id = R.id.league_list
                 layoutManager = GridLayoutManager(this@MainActivity,2)
-                adapter = RecyclerViewAdapter(this@MainActivity,items){
+                adapter = RecyclerViewAdapter(
+                    this@MainActivity,
+                    items
+                ) {
                     val toast = Toast.makeText(applicationContext, it.name, Toast.LENGTH_SHORT)
                     toast.show()
                     info("MainActivity: Item clicked")
-                    debug("MainActivity: Name="+it.name)
-                    debug("MainActivity: Description="+it.description)
-                    startActivity<LeagueDetailActivity>("league" to it )
+                    debug("MainActivity: Name=" + it.name)
+                    debug("MainActivity: Description=" + it.description)
+                    startActivity<LeagueDetailActivity>("league" to it)
                 }
             }
         }

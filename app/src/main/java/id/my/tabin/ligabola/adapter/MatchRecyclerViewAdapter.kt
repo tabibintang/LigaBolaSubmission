@@ -1,28 +1,28 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.adapter
 
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.squareup.picasso.Picasso
+import id.my.tabin.ligabola.R
+import id.my.tabin.ligabola.model.Event
 import org.jetbrains.anko.find
-import org.jetbrains.anko.sdk27.coroutines.onClick
-import org.jetbrains.anko.startActivity
 
 
-class MatchRecyclerViewAdapter (private val events: List<Event>, val context: Context,private val listener: (Event) -> Unit)
+class MatchRecyclerViewAdapter (private val events: List<Event>, val context: Context, private val listener: (Event) -> Unit)
     : RecyclerView.Adapter<MatchViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
         //return TeamViewHolder(TeamUI().createView(AnkoContext.create(parent.context, parent)))
-        return MatchViewHolder(LayoutInflater.from(context).inflate(R.layout.match_list,parent,false))
+        return MatchViewHolder(
+            LayoutInflater.from(
+                context
+            ).inflate(R.layout.match_list, parent, false)
+        )
     }
 
     override fun getItemCount(): Int = events.size

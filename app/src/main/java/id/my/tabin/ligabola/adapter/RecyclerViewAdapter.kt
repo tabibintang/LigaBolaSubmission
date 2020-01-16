@@ -1,4 +1,4 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -8,13 +8,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
+import id.my.tabin.ligabola.R
+import id.my.tabin.ligabola.model.League
 import org.jetbrains.anko.*
 import org.jetbrains.anko.cardview.v7.cardView
 
 class RecyclerViewAdapter (private val context: Context, private val items:List<League>, private val listener: (League) -> Unit): RecyclerView.Adapter<ViewHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ViewHolder{
-        return ViewHolder(TimListUI().createView(AnkoContext.create(parent.context,parent)))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
+            TimListUI().createView(
+                AnkoContext.create(parent.context, parent)
+            )
+        )
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(items[position], listener)
@@ -60,7 +66,7 @@ class ViewHolder(containerView: View) : RecyclerView.ViewHolder(containerView){
     private val teamImage: ImageView = containerView.find(R.id.team_image)
     private val teamName: TextView = containerView.find(R.id.team_name)
 
-    fun bindItem(items:League, listener: (League)-> Unit){
+    fun bindItem(items: League, listener: (League)-> Unit){
         teamName.text = items.name
         items.image?.let { Picasso.get().load(it).fit().into(teamImage)}
         itemView.setOnClickListener { listener(items)}

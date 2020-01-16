@@ -1,4 +1,4 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.api
 
 import java.net.URL
 

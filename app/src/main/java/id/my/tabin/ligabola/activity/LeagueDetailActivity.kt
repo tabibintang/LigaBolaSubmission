@@ -1,4 +1,4 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.activity
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import id.my.tabin.ligabola.R
+import id.my.tabin.ligabola.adapter.LeagueDetailPagerAdapter
+import id.my.tabin.ligabola.model.League
 import kotlinx.android.synthetic.main.activity_league_detail.*
 
 class LeagueDetailActivity : AppCompatActivity() {
@@ -17,7 +20,11 @@ class LeagueDetailActivity : AppCompatActivity() {
         val intent = intent
         val league = intent.getParcelableExtra<League>("league")
 
-        viewpager_container.adapter = LeagueDetailPagerAdapter(supportFragmentManager,league)
+        viewpager_container.adapter =
+            LeagueDetailPagerAdapter(
+                supportFragmentManager,
+                league
+            )
         tabs_league_detail.setupWithViewPager(viewpager_container)
     }
 

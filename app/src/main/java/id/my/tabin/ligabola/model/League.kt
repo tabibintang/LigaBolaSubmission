@@ -1,4 +1,4 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

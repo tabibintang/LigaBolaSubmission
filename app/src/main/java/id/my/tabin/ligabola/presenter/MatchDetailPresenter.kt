@@ -1,6 +1,12 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.presenter
 
 import com.google.gson.Gson
+import id.my.tabin.ligabola.api.ApiRepository
+import id.my.tabin.ligabola.api.TheSportDBApi
+import id.my.tabin.ligabola.model.Event
+import id.my.tabin.ligabola.response.EventResponse
+import id.my.tabin.ligabola.response.TeamResponse
+import id.my.tabin.ligabola.view.MatchDetailView
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -15,18 +21,30 @@ class MatchDetailPresenter(
         doAsync {
             val data = gson.fromJson(
                 apiRepository
-                    .doRequest(TheSportDBApi.getMatchDetail(idEvent)),
+                    .doRequest(
+                        TheSportDBApi.getMatchDetail(
+                            idEvent
+                        )
+                    ),
                 EventResponse::class.java
             )
             for (i in 0 until data.events.size) {
                 val dataHome = gson.fromJson(
                     apiRepository
-                        .doRequest(TheSportDBApi.getTeamDetail(data.events[i].homeTeam)),
+                        .doRequest(
+                            TheSportDBApi.getTeamDetail(
+                                data.events[i].homeTeam
+                            )
+                        ),
                     TeamResponse::class.java
                 )
                 val dataAway = gson.fromJson(
                     apiRepository
-                        .doRequest(TheSportDBApi.getTeamDetail(data.events[i].awayTeam)),
+                        .doRequest(
+                            TheSportDBApi.getTeamDetail(
+                                data.events[i].awayTeam
+                            )
+                        ),
                     TeamResponse::class.java
                 )
                 matches.add(

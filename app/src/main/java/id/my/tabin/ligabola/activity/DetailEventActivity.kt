@@ -1,4 +1,4 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.activity
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -8,11 +8,17 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
+import id.my.tabin.ligabola.*
+import id.my.tabin.ligabola.api.ApiRepository
+import id.my.tabin.ligabola.model.Event
+import id.my.tabin.ligabola.presenter.MatchDetailPresenter
+import id.my.tabin.ligabola.support.invisible
+import id.my.tabin.ligabola.support.visible
+import id.my.tabin.ligabola.view.MatchDetailView
 import kotlinx.android.synthetic.main.activity_detail_event.*
-import kotlinx.android.synthetic.main.fragment_detail_league.*
-import kotlinx.android.synthetic.main.fragment_next_match.*
 
-class DetailEventActivity : AppCompatActivity(), MatchDetailView {
+class DetailEventActivity : AppCompatActivity(),
+    MatchDetailView {
 
     private var events: MutableList<Event> = mutableListOf()
     private lateinit var presenter: MatchDetailPresenter
@@ -26,7 +32,11 @@ class DetailEventActivity : AppCompatActivity(), MatchDetailView {
         val request = ApiRepository()
         val gson = Gson()
 
-        presenter = MatchDetailPresenter(this, request, gson)
+        presenter = MatchDetailPresenter(
+            this,
+            request,
+            gson
+        )
         presenter.getMatchDetail(id_event)
     }
 

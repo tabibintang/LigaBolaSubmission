@@ -1,6 +1,7 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.api
 
 import android.net.Uri
+import id.my.tabin.ligabola.BuildConfig
 
 object TheSportDBApi {
     fun getDetailLeague(league: String?): String {

@@ -1,4 +1,4 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.fragment
 
 
 import android.os.Bundle
@@ -9,8 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
+import id.my.tabin.ligabola.api.ApiRepository
+import id.my.tabin.ligabola.R
+import id.my.tabin.ligabola.adapter.TeamRecyclerViewAdapter
+import id.my.tabin.ligabola.support.invisible
+import id.my.tabin.ligabola.model.League
+import id.my.tabin.ligabola.model.Team
+import id.my.tabin.ligabola.presenter.MainPresenter
+import id.my.tabin.ligabola.view.MainView
+import id.my.tabin.ligabola.support.visible
 import kotlinx.android.synthetic.main.fragment_detail_league.*
-import org.jetbrains.anko.support.v4.onRefresh
 
 /**
  * A simple [Fragment] subclass.
@@ -37,10 +45,14 @@ class DetailLeagueFragment : Fragment(), MainView {
         val gson = Gson()
 
         recycler_detail_list_team.layoutManager = LinearLayoutManager(context)
-        adapter = TeamRecyclerViewAdapter(teams,context!!)
+        adapter = TeamRecyclerViewAdapter(
+            teams,
+            context!!
+        )
         recycler_detail_list_team.adapter = adapter
 
-        presenter = MainPresenter(this, request, gson)
+        presenter =
+            MainPresenter(this, request, gson)
 
         presenter.getDetailLeague(league?.id,league?.name)
         //presenter.getTeamList(league?.name)

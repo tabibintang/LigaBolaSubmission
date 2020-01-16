@@ -1,4 +1,4 @@
-package id.my.tabin.ligabola
+package id.my.tabin.ligabola.fragment
 
 
 import android.content.ContentValues.TAG
@@ -12,13 +12,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.Gson
+import id.my.tabin.ligabola.*
+import id.my.tabin.ligabola.activity.DetailEventActivity
+import id.my.tabin.ligabola.adapter.MatchRecyclerViewAdapter
+import id.my.tabin.ligabola.api.ApiRepository
+import id.my.tabin.ligabola.model.Event
+import id.my.tabin.ligabola.model.League
+import id.my.tabin.ligabola.presenter.MatchListPresenter
+import id.my.tabin.ligabola.support.invisible
+import id.my.tabin.ligabola.support.visible
+import id.my.tabin.ligabola.view.MatchListView
 import kotlinx.android.synthetic.main.fragment_next_match.*
-import org.jetbrains.anko.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class NextMatchFragment : Fragment(),MatchListView {
+class NextMatchFragment : Fragment(), MatchListView {
 
     private var events: MutableList<Event> = mutableListOf()
     private lateinit var presenter: MatchListPresenter
@@ -39,18 +48,25 @@ class NextMatchFragment : Fragment(),MatchListView {
         val gson = Gson()
 
         recycler_next_list_match.layoutManager = LinearLayoutManager(context)
-        adapter = MatchRecyclerViewAdapter(events,context!!){
+        adapter = MatchRecyclerViewAdapter(
+            events,
+            context!!
+        ) {
             val toast = Toast.makeText(context, it.eventName, Toast.LENGTH_SHORT)
             toast.show()
             Log.d(TAG, "Click: $it.id")
             val intent = Intent(context, DetailEventActivity::class.java)
-            intent.putExtra("id_match", it.id )
+            intent.putExtra("id_match", it.id)
             startActivity(intent)
             //startActivity<DetailEventActivity>("id_match" to it.id )
         }
         recycler_next_list_match.adapter = adapter
 
-        presenter  = MatchListPresenter(this,request,gson)
+        presenter  = MatchListPresenter(
+            this,
+            request,
+            gson
+        )
         presenter.getMatchNextList(league?.id)
 
     }
