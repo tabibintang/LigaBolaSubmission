@@ -10,6 +10,7 @@ import android.widget.Toast
 import id.my.tabin.ligabola.R
 import id.my.tabin.ligabola.adapter.RecyclerViewAdapter
 import id.my.tabin.ligabola.model.League
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 
@@ -17,9 +18,24 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     private var items: MutableList<League> = mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
         initData()
-        showRecyclerList()
+        //showRecyclerList()
+
+        bottom_navigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.teams -> {
+                    val toast = Toast.makeText(applicationContext, "List League", Toast.LENGTH_SHORT)
+                    toast.show()
+                }
+                R.id.favorites -> {
+                    val toast = Toast.makeText(applicationContext, "List Favourite", Toast.LENGTH_SHORT)
+                    toast.show()
+                }
+            }
+            true
+        }
+        bottom_navigation.selectedItemId = R.id.teams
     }
 
     private fun initData(){
