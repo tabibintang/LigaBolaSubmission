@@ -53,6 +53,8 @@ data class Event(
     @SerializedName("strAwayLineupSubstitutes")
     val awaySubtitute: String? = null,
     @SerializedName("strAwayGoalDetails")
-    val awayGoal: String? = null
+    val awayGoal: String? = null,
+    @SerializedName("strSport")
+    val sportCategory: String? = null
 
 ) : Parcelable

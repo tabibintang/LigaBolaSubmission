@@ -153,6 +153,9 @@ class MatchListPresenter(
                 EventSearchResponse::class.java
             )
             for (i in 0 until data.event.size) {
+                if(data.event[i].sportCategory != "Soccer"){
+                    continue
+                }
                 val dataHome = gson.fromJson(
                     apiRepository
                         .doRequest(

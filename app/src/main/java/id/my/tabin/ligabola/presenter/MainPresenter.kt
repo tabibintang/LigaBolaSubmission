@@ -30,7 +30,7 @@ class MainPresenter(
                 apiRepository
                     .doRequest(
                         TheSportDBApi.getTeams(
-                            leagueName
+                            data.leagues[0].name
                         )
                     ),
                 TeamResponse::class.java

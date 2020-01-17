@@ -3,18 +3,15 @@ package id.my.tabin.ligabola.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import id.my.tabin.ligabola.R
-import id.my.tabin.ligabola.adapter.RecyclerViewAdapter
 import id.my.tabin.ligabola.fragment.FavouriteEventFragment
 import id.my.tabin.ligabola.fragment.LeagueListFragment
 import id.my.tabin.ligabola.model.League
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.*
-import org.jetbrains.anko.recyclerview.v7.recyclerView
+import org.jetbrains.anko.AnkoLogger
 
 class MainActivity : AppCompatActivity(), AnkoLogger {
     private var items: MutableList<League> = mutableListOf()
@@ -66,28 +63,28 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
     }
 
-    private fun showRecyclerList() {
-        relativeLayout {
-            lparams(width = matchParent, height = matchParent)
-            padding = dip(16)
-            recyclerView {
-                lparams(width = matchParent, height = matchParent)
-                id = R.id.league_list
-                layoutManager = GridLayoutManager(this@MainActivity, 2)
-                adapter = RecyclerViewAdapter(
-                    this@MainActivity,
-                    items
-                ) {
-                    val toast = Toast.makeText(applicationContext, it.name, Toast.LENGTH_SHORT)
-                    toast.show()
-                    info("MainActivity: Item clicked")
-                    debug("MainActivity: Name=" + it.name)
-                    debug("MainActivity: Description=" + it.description)
-                    startActivity<LeagueDetailActivity>("league" to it)
-                }
-            }
-        }
-    }
+//    private fun showRecyclerList() {
+//        relativeLayout {
+//            lparams(width = matchParent, height = matchParent)
+//            padding = dip(16)
+//            recyclerView {
+//                lparams(width = matchParent, height = matchParent)
+//                id = R.id.league_list
+//                layoutManager = GridLayoutManager(this@MainActivity, 2)
+//                adapter = RecyclerViewAdapter(
+//                    this@MainActivity,
+//                    items
+//                ) {
+//                    val toast = Toast.makeText(applicationContext, it.name, Toast.LENGTH_SHORT)
+//                    toast.show()
+//                    info("MainActivity: Item clicked")
+//                    debug("MainActivity: Name=" + it.name)
+//                    debug("MainActivity: Description=" + it.description)
+//                    startActivity<LeagueDetailActivity>("league" to it)
+//                }
+//            }
+//        }
+//    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
@@ -128,14 +125,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             startActivity(intent)
             true
         }
-//        R.id.action_profile -> {
-//            msgShow("Profile")
-//            true
-//        }
-//        R.id.action_setting -> {
-//            msgShow("Setting")
-//            true
-//        }
         else -> {
             super.onOptionsItemSelected(item)
         }
