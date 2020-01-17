@@ -13,8 +13,11 @@ import id.my.tabin.ligabola.model.Event
 import org.jetbrains.anko.find
 
 
-class MatchRecyclerViewAdapter (private val events: List<Event>, val context: Context, private val listener: (Event) -> Unit)
-    : RecyclerView.Adapter<MatchViewHolder>(){
+class MatchRecyclerViewAdapter(
+    private val events: List<Event>,
+    val context: Context,
+    private val listener: (Event) -> Unit
+) : RecyclerView.Adapter<MatchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
         //return TeamViewHolder(TeamUI().createView(AnkoContext.create(parent.context, parent)))
@@ -32,7 +35,7 @@ class MatchRecyclerViewAdapter (private val events: List<Event>, val context: Co
     }
 }
 
-class MatchViewHolder(view: View) : RecyclerView.ViewHolder(view){
+class MatchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val imageTeamHome: ImageView = view.find(R.id.image_team_home)
     private val imageTeamAway: ImageView = view.find(R.id.image_team_away)
     private val dateEvent: TextView = view.find(R.id.text_date_event)
@@ -50,7 +53,7 @@ class MatchViewHolder(view: View) : RecyclerView.ViewHolder(view){
         teamAway.text = matches.awayTeam
         dateEvent.text = matches.dateEventLocal
         timeEvent.text = matches.timeLocal
-        itemView.setOnClickListener{
+        itemView.setOnClickListener {
             listener(matches)
         }
     }

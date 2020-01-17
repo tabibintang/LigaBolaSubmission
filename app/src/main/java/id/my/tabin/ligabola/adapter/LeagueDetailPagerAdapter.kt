@@ -27,7 +27,7 @@ class LeagueDetailPagerAdapter(fragmentManager: FragmentManager, league: League)
         val bundle = Bundle()
         bundle.putParcelable("league", league)
 
-        when(position){
+        when (position) {
             0 -> {
                 val detailLeagueFragment =
                     DetailLeagueFragment()

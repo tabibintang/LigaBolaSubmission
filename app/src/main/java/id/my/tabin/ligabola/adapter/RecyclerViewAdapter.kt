@@ -13,7 +13,11 @@ import id.my.tabin.ligabola.model.League
 import org.jetbrains.anko.*
 import org.jetbrains.anko.cardview.v7.cardView
 
-class RecyclerViewAdapter (private val context: Context, private val items:List<League>, private val listener: (League) -> Unit): RecyclerView.Adapter<ViewHolder>(){
+class RecyclerViewAdapter(
+    private val context: Context,
+    private val items: List<League>,
+    private val listener: (League) -> Unit
+) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -22,13 +26,15 @@ class RecyclerViewAdapter (private val context: Context, private val items:List<
             )
         )
     }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItem(items[position], listener)
     }
+
     override fun getItemCount(): Int = items.size
 }
 
-class TimListUI:AnkoComponent<ViewGroup> {
+class TimListUI : AnkoComponent<ViewGroup> {
 
     override fun createView(ui: AnkoContext<ViewGroup>): View = with(ui) {
         cardView {
@@ -43,7 +49,7 @@ class TimListUI:AnkoComponent<ViewGroup> {
             }
             relativeLayout {
                 lparams(width = matchParent, height = matchParent)
-                imageView(R.drawable.american_mayor_league){
+                imageView(R.drawable.american_mayor_league) {
                     id = R.id.team_image
                     scaleType = ImageView.ScaleType.FIT_XY
                 }.lparams(
@@ -62,14 +68,14 @@ class TimListUI:AnkoComponent<ViewGroup> {
     }
 }
 
-class ViewHolder(containerView: View) : RecyclerView.ViewHolder(containerView){
+class ViewHolder(containerView: View) : RecyclerView.ViewHolder(containerView) {
     private val teamImage: ImageView = containerView.find(R.id.team_image)
     private val teamName: TextView = containerView.find(R.id.team_name)
 
-    fun bindItem(items: League, listener: (League)-> Unit){
+    fun bindItem(items: League, listener: (League) -> Unit) {
         teamName.text = items.name
-        items.image?.let { Picasso.get().load(it).fit().into(teamImage)}
-        itemView.setOnClickListener { listener(items)}
+        items.image?.let { Picasso.get().load(it).fit().into(teamImage) }
+        itemView.setOnClickListener { listener(items) }
     }
 }
 

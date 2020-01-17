@@ -9,15 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import id.my.tabin.ligabola.api.ApiRepository
 import id.my.tabin.ligabola.R
 import id.my.tabin.ligabola.adapter.TeamRecyclerViewAdapter
-import id.my.tabin.ligabola.support.invisible
+import id.my.tabin.ligabola.api.ApiRepository
 import id.my.tabin.ligabola.model.League
 import id.my.tabin.ligabola.model.Team
 import id.my.tabin.ligabola.presenter.MainPresenter
-import id.my.tabin.ligabola.view.MainView
+import id.my.tabin.ligabola.support.invisible
 import id.my.tabin.ligabola.support.visible
+import id.my.tabin.ligabola.view.MainView
 import kotlinx.android.synthetic.main.fragment_detail_league.*
 
 /**
@@ -54,7 +54,7 @@ class DetailLeagueFragment : Fragment(), MainView {
         presenter =
             MainPresenter(this, request, gson)
 
-        presenter.getDetailLeague(league?.id,league?.name)
+        presenter.getDetailLeague(league?.id, league?.name)
         //presenter.getTeamList(league?.name)
 
 //        refresh_layout_detail.onRefresh {

@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.Gson
-import id.my.tabin.ligabola.*
+import id.my.tabin.ligabola.R
 import id.my.tabin.ligabola.activity.DetailEventActivity
 import id.my.tabin.ligabola.adapter.MatchRecyclerViewAdapter
 import id.my.tabin.ligabola.api.ApiRepository
@@ -62,7 +62,7 @@ class NextMatchFragment : Fragment(), MatchListView {
         }
         recycler_next_list_match.adapter = adapter
 
-        presenter  = MatchListPresenter(
+        presenter = MatchListPresenter(
             this,
             request,
             gson
@@ -70,6 +70,7 @@ class NextMatchFragment : Fragment(), MatchListView {
         presenter.getMatchNextList(league?.id)
 
     }
+
     override fun showLoading() {
         progress_bar_next.visible()
     }

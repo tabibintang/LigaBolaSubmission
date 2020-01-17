@@ -9,14 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import id.my.tabin.ligabola.R
-import id.my.tabin.ligabola.model.Team
-import org.jetbrains.anko.*
-
 import id.my.tabin.ligabola.R.id.team_badge
 import id.my.tabin.ligabola.R.id.team_name
+import id.my.tabin.ligabola.model.Team
+import org.jetbrains.anko.find
 
-class TeamRecyclerViewAdapter (private val teams: List<Team>, val context: Context)
-    : RecyclerView.Adapter<TeamViewHolder>(){
+class TeamRecyclerViewAdapter(private val teams: List<Team>, val context: Context) :
+    RecyclerView.Adapter<TeamViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamViewHolder {
         //return TeamViewHolder(TeamUI().createView(AnkoContext.create(parent.context, parent)))
@@ -34,7 +33,7 @@ class TeamRecyclerViewAdapter (private val teams: List<Team>, val context: Conte
     }
 }
 
-class TeamViewHolder(view: View) : RecyclerView.ViewHolder(view){
+class TeamViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val teamBadge: ImageView = view.find(team_badge)
     private val teamName: TextView = view.find(team_name)
     fun bindItem(teams: Team) {

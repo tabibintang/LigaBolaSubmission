@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import id.my.tabin.ligabola.api.ApiRepository
 import id.my.tabin.ligabola.api.TheSportDBApi
 import id.my.tabin.ligabola.model.Event
+import id.my.tabin.ligabola.model.Favourite
 import id.my.tabin.ligabola.response.EventResponse
 import id.my.tabin.ligabola.response.EventSearchResponse
 import id.my.tabin.ligabola.response.TeamResponse
@@ -29,7 +30,7 @@ class MatchListPresenter(
                     ),
                 EventResponse::class.java
             )
-            for(i in 0 until data.events.size){
+            for (i in 0 until data.events.size) {
                 val dataHome = gson.fromJson(
                     apiRepository
                         .doRequest(
@@ -77,6 +78,7 @@ class MatchListPresenter(
             }
         }
     }
+
     fun getMatchPrevList(league: String?) {
         view.showLoading()
         doAsync {
@@ -89,7 +91,7 @@ class MatchListPresenter(
                     ),
                 EventResponse::class.java
             )
-            for(i in 0 until data.events.size){
+            for (i in 0 until data.events.size) {
                 val dataHome = gson.fromJson(
                     apiRepository
                         .doRequest(
@@ -137,6 +139,7 @@ class MatchListPresenter(
             }
         }
     }
+
     fun getMatchSearchList(search: String?) {
         view.showLoading()
         doAsync {
@@ -149,7 +152,7 @@ class MatchListPresenter(
                     ),
                 EventSearchResponse::class.java
             )
-            for(i in 0 until data.event.size){
+            for (i in 0 until data.event.size) {
                 val dataHome = gson.fromJson(
                     apiRepository
                         .doRequest(
@@ -190,6 +193,70 @@ class MatchListPresenter(
                         data.event[i].timeLocal
                     )
                 )
+            }
+            uiThread {
+                view.hideLoading()
+                view.showMatchList(matchesList)
+            }
+        }
+    }
+
+    fun getMatchFavouriteList(favourites: List<Favourite>) {
+        view.showLoading()
+        doAsync {
+            matchesList.clear()
+            for (index in 0 until favourites.size) {
+                val data = gson.fromJson(
+                    apiRepository
+                        .doRequest(
+                            TheSportDBApi.getMatchDetail(
+                                favourites[index].idEvent
+                            )
+                        ),
+                    EventResponse::class.java
+                )
+                for (i in 0 until data.events.size) {
+                    val dataHome = gson.fromJson(
+                        apiRepository
+                            .doRequest(
+                                TheSportDBApi.getTeamDetail(
+                                    data.events[i].homeTeam
+                                )
+                            ),
+                        TeamResponse::class.java
+                    )
+                    val dataAway = gson.fromJson(
+                        apiRepository
+                            .doRequest(
+                                TheSportDBApi.getTeamDetail(
+                                    data.events[i].awayTeam
+                                )
+                            ),
+                        TeamResponse::class.java
+                    )
+                    matchesList.add(
+                        Event(
+                            data.events[i].id,
+                            data.events[i].eventName,
+                            data.events[i].homeTeam,
+                            data.events[i].awayTeam,
+                            if (data.events[i].homeScore == null) {
+                                "-"
+                            } else {
+                                data.events[i].homeScore
+                            },
+                            if (data.events[i].awayScore == null) {
+                                "-"
+                            } else {
+                                data.events[i].awayScore
+                            },
+                            dataHome.teams[0].teamBadge, //data.events[i].homeBadge,
+                            dataAway.teams[0].teamBadge, //data.events[i].awayBadge,
+                            data.events[i].dateEventLocal,
+                            data.events[i].timeLocal
+                        )
+                    )
+                }
             }
             uiThread {
                 view.hideLoading()

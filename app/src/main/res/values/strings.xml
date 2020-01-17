@@ -77,7 +77,25 @@
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="leagues">League</string>
     <string name="favorites">Favourite</string>
+    <string name="team_badge">Team Badge</string>
+    <string name="league_badge">League Badge</string>
+    <string name="zero_score">00</string>
+    <string name="divider_score">:</string>
+    <string name="title_team_home">Team Home</string>
+    <string name="title_team_away">Team Away</string>
+    <string name="title_detail_event">Detail Event</string>
+    <string name="title_date">Date</string>
+    <string name="title_time">Time</string>
+    <string name="title_round">Round</string>
+    <string name="title_goal">Goal</string>
+    <string name="title_formation">Formation</string>
+    <string name="title_keeper">Keeper</string>
+    <string name="title_defend">Defend</string>
+    <string name="title_mid_field">Mid Field</string>
+    <string name="title_forward">Forward</string>
+    <string name="title_subtitute">Subtitute</string>
+    <string name="team_home">Team Home</string>
+    <string name="team_away">Team Away</string>
 </resources>

@@ -16,38 +16,41 @@ import id.my.tabin.ligabola.R
 import id.my.tabin.ligabola.activity.DetailEventActivity
 import id.my.tabin.ligabola.adapter.MatchRecyclerViewAdapter
 import id.my.tabin.ligabola.api.ApiRepository
+import id.my.tabin.ligabola.helper.database
 import id.my.tabin.ligabola.model.Event
-import id.my.tabin.ligabola.model.League
+import id.my.tabin.ligabola.model.Favourite
 import id.my.tabin.ligabola.presenter.MatchListPresenter
 import id.my.tabin.ligabola.support.invisible
 import id.my.tabin.ligabola.support.visible
 import id.my.tabin.ligabola.view.MatchListView
-import kotlinx.android.synthetic.main.fragment_prev_match.*
+import kotlinx.android.synthetic.main.fragment_favourite_event.*
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.select
+import org.jetbrains.anko.support.v4.onRefresh
 
 /**
  * A simple [Fragment] subclass.
  */
-class PrevMatchFragment : Fragment(), MatchListView {
-
+class FavouriteEventFragment : Fragment(), MatchListView {
+    private var favourites: MutableList<Favourite> = mutableListOf()
+    private lateinit var adapter: MatchRecyclerViewAdapter
     private var events: MutableList<Event> = mutableListOf()
     private lateinit var presenter: MatchListPresenter
-    private lateinit var adapter: MatchRecyclerViewAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_prev_match, container, false)
+        return inflater.inflate(R.layout.fragment_favourite_event, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val league = arguments?.getParcelable<League>("league")
 
         val request = ApiRepository()
         val gson = Gson()
 
-        recycler_prev_list_match.layoutManager = LinearLayoutManager(context)
+        recycler_favourite_list_match.layoutManager = LinearLayoutManager(context)
         adapter = MatchRecyclerViewAdapter(
             events,
             context!!
@@ -60,28 +63,47 @@ class PrevMatchFragment : Fragment(), MatchListView {
             startActivity(intent)
             //startActivity<DetailEventActivity>("id_match" to it.id )
         }
-        recycler_prev_list_match.adapter = adapter
+        recycler_favourite_list_match.adapter = adapter
+        showFavourite()
 
         presenter = MatchListPresenter(
             this,
             request,
             gson
         )
-        presenter.getMatchPrevList(league?.id)
+        presenter.getMatchFavouriteList(favourites)
+        swipe_refresh_layout.onRefresh {
+            showFavourite()
+            presenter.getMatchFavouriteList(favourites)
+        }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        showFavourite()
+    }
+
+    private fun showFavourite() {
+        favourites.clear()
+        context?.database?.use {
+            val result = select(Favourite.TABLE_FAVOURITE)
+            val favourite = result.parseList(classParser<Favourite>())
+            favourites.addAll(favourite)
+        }
     }
 
     override fun showLoading() {
-        progress_bar_prev.visible()
+        progress_bar_favourite.visible()
     }
 
     override fun hideLoading() {
-        progress_bar_prev.invisible()
+        progress_bar_favourite.invisible()
     }
 
     override fun showMatchList(data: List<Event>) {
         events.clear()
         events.addAll(data)
         adapter.notifyDataSetChanged()
+        swipe_refresh_layout.isRefreshing = false
     }
 }

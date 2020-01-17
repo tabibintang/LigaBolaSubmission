@@ -55,4 +55,4 @@ data class Event(
     @SerializedName("strAwayGoalDetails")
     val awayGoal: String? = null
 
-    ) : Parcelable
+) : Parcelable

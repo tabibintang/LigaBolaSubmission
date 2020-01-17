@@ -11,10 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MatchSearchActivity" android:windowSoftInputMode="adjustResize|stateHidden"
-            android:theme="@style/ThemeOverlay.AppCompat.NoActionBar" android:screenOrientation="portrait" android:parentActivityName=".activity.MainActivity"></activity>
-        <activity android:name=".activity.DetailEventActivity" android:parentActivityName=".activity.MainActivity" />
-        <activity android:name=".activity.LeagueDetailActivity" android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.MatchSearchActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:theme="@style/ThemeOverlay.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activity.MainActivity"></activity>
+        <activity
+            android:name=".activity.DetailEventActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.LeagueDetailActivity"
+            android:parentActivityName=".activity.MainActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

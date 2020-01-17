@@ -2,8 +2,8 @@ package id.my.tabin.ligabola.activity
 
 import android.content.ContentValues
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.util.Log
@@ -11,14 +11,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.google.gson.Gson
-import id.my.tabin.ligabola.api.ApiRepository
 import id.my.tabin.ligabola.R
 import id.my.tabin.ligabola.adapter.MatchRecyclerViewAdapter
-import id.my.tabin.ligabola.support.invisible
+import id.my.tabin.ligabola.api.ApiRepository
 import id.my.tabin.ligabola.model.Event
 import id.my.tabin.ligabola.presenter.MatchListPresenter
-import id.my.tabin.ligabola.view.MatchListView
+import id.my.tabin.ligabola.support.invisible
 import id.my.tabin.ligabola.support.visible
+import id.my.tabin.ligabola.view.MatchListView
 import kotlinx.android.synthetic.main.activity_match_search.*
 
 class MatchSearchActivity : AppCompatActivity() {
@@ -93,7 +93,7 @@ class MatchSearchActivity : AppCompatActivity() {
             override fun showMatchList(data: List<Event>) {
                 events.clear()
                 events.addAll(data)
-                if(data.isNullOrEmpty()){
+                if (data.isNullOrEmpty()) {
                     Toast.makeText(applicationContext, "Not found", Toast.LENGTH_SHORT).show()
                 }
                 adapter.notifyDataSetChanged()

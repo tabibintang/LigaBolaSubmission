@@ -34,7 +34,8 @@
                     android:id="@+id/image_team_home_detail"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_toStartOf="@id/text_score_home_detail" />
+                    android:layout_toStartOf="@id/text_score_home_detail"
+                    android:contentDescription="@string/team_badge" />
 
                 <TextView
                     android:id="@+id/text_score_home_detail"
@@ -44,8 +45,9 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_toStartOf="@id/text_divider"
-                    android:text="00"
-                    android:textSize="40sp" />
+                    android:text="@string/zero_score"
+                    android:textSize="40sp"
+                    tools:text="@string/zero_score" />
 
                 <TextView
                     android:id="@+id/text_divider"
@@ -55,7 +57,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text=":"
+                    android:text="@string/divider_score"
                     android:textSize="40sp" />
 
                 <TextView
@@ -66,14 +68,16 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_toEndOf="@id/text_divider"
-                    android:text="00"
-                    android:textSize="40sp" />
+                    android:text="@string/zero_score"
+                    android:textSize="40sp"
+                    tools:text="@string/zero_score" />
 
                 <ImageView
                     android:id="@+id/image_team_away_detail"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_toEndOf="@id/text_score_away_detail" />
+                    android:layout_toEndOf="@id/text_score_away_detail"
+                    android:contentDescription="@string/team_badge" />
             </RelativeLayout>
 
             <LinearLayout
@@ -89,8 +93,9 @@
                     android:layout_weight="1"
                     android:background="@color/colorAccent"
                     android:padding="8dp"
-                    android:text="Team Home"
-                    android:textColor="#fff" />
+                    android:text="@string/title_team_home"
+                    android:textColor="#fff"
+                    tools:text="@string/title_team_home" />
 
                 <TextView
                     android:id="@+id/text_team_away_detail"
@@ -101,8 +106,9 @@
                     android:background="@color/colorPrimary"
                     android:gravity="right"
                     android:padding="8dp"
-                    android:text="Team Away"
-                    android:textColor="#fff" />
+                    android:text="@string/title_team_away"
+                    android:textColor="#fff"
+                    tools:text="@string/title_team_away" />
 
             </LinearLayout>
 
@@ -117,7 +123,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="Detail Event "
+                    android:text="@string/title_detail_event"
                     android:textSize="18sp" />
 
                 <TextView
@@ -125,7 +131,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:paddingBottom="8dp"
-                    android:text="Date "
+                    android:text="@string/title_date"
                     android:textSize="16sp" />
 
                 <TextView
@@ -134,14 +140,15 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:paddingBottom="8dp"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="Event's Date" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:paddingBottom="8dp"
-                    android:text="Time "
+                    android:text="@string/title_time"
                     android:textSize="16sp" />
 
                 <TextView
@@ -150,14 +157,15 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:paddingBottom="8dp"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="Event's Time" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:paddingBottom="8dp"
-                    android:text="Round"
+                    android:text="@string/title_round"
                     android:textSize="16sp" />
 
                 <TextView
@@ -166,7 +174,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:paddingBottom="8dp"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="Event's Round" />
             </LinearLayout>
 
             <TextView
@@ -174,7 +183,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingBottom="8dp"
-                android:text="Goal"
+                android:text="@string/title_goal"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -193,7 +202,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Home's Goal" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -207,7 +217,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Away's Goal" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -216,7 +227,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingBottom="8dp"
-                android:text="Formation"
+                android:text="@string/title_formation"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -235,7 +246,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Home's Formation" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -249,7 +261,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Away's Formation" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -258,7 +271,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingBottom="8dp"
-                android:text="Keeper"
+                android:text="@string/title_keeper"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -277,7 +290,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Home's Keeper" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -291,7 +305,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Away's Keeper" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -300,7 +315,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingBottom="8dp"
-                android:text="Defend"
+                android:text="@string/title_defend"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -319,7 +334,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Home's Defend" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -333,7 +349,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Away's Defend" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -342,7 +359,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingBottom="8dp"
-                android:text="Mid Field"
+                android:text="@string/title_mid_field"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -361,7 +378,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Home's Mid Field" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -375,7 +393,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Away's Mid Field" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -384,7 +403,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingBottom="8dp"
-                android:text="Forward"
+                android:text="@string/title_forward"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -403,7 +422,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Home's Forward" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -417,7 +437,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Away's Forward" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -426,7 +447,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingBottom="8dp"
-                android:text="Subtitute"
+                android:text="@string/title_subtitute"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -445,7 +466,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Home's Subtitute" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -459,7 +481,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:paddingBottom="8dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Away's Subtitute" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

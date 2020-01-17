@@ -30,7 +30,8 @@
                     android:id="@+id/image_team_home"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:layout_toStartOf="@id/text_score_home" />
+                    android:layout_toStartOf="@id/text_score_home"
+                    android:contentDescription="@string/team_badge" />
 
                 <TextView
                     android:id="@+id/text_score_home"
@@ -40,7 +41,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_toStartOf="@id/text_divider"
-                    android:text="00"
+                    android:text="@string/zero_score"
                     android:textSize="40sp" />
 
                 <TextView
@@ -51,7 +52,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:text=":"
+                    android:text="@string/divider_score"
                     android:textSize="40sp" />
 
                 <TextView
@@ -62,14 +63,15 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_toEndOf="@id/text_divider"
-                    android:text="00"
+                    android:text="@string/zero_score"
                     android:textSize="40sp" />
 
                 <ImageView
                     android:id="@+id/image_team_away"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:layout_toEndOf="@id/text_score_away" />
+                    android:layout_toEndOf="@id/text_score_away"
+                    android:contentDescription="@string/team_badge" />
             </RelativeLayout>
 
             <LinearLayout
@@ -86,7 +88,7 @@
                     android:layout_weight="1"
                     android:background="@color/colorAccent"
                     android:padding="8dp"
-                    android:text="Team Home"
+                    android:text="@string/team_home"
                     android:textColor="#fff" />
 
                 <TextView
@@ -98,7 +100,7 @@
                     android:background="@color/colorPrimary"
                     android:gravity="right"
                     android:padding="8dp"
-                    android:text="Team Away"
+                    android:text="@string/team_away"
                     android:textColor="#fff" />
 
             </LinearLayout>
@@ -112,18 +114,20 @@
                     android:id="@+id/text_date_event"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
+                    android:gravity="center"
                     android:paddingTop="8dp"
-                    android:gravity="center"/>
+                    android:textSize="16sp"
+                    tools:text="Event's Date" />
 
                 <TextView
                     android:id="@+id/text_time_event"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="12sp"
+                    android:gravity="center"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
-                    android:gravity="center"/>
+                    android:textSize="12sp"
+                    tools:text="Event's Time" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
