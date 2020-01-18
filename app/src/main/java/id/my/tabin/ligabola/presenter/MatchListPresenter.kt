@@ -32,12 +32,12 @@ class MatchListPresenter(
                     ).await(),
                 EventResponse::class.java
             )
-            for (i in 0 until data.events.size) {
+            for (event in data.events) {
                 val dataHome = gson.fromJson(
                     apiRepository
                         .doRequest(
                             TheSportDBApi.getTeamDetail(
-                                data.events[i].homeTeam
+                                event.homeTeam
                             )
                         ).await(),
                     TeamResponse::class.java
@@ -46,31 +46,36 @@ class MatchListPresenter(
                     apiRepository
                         .doRequest(
                             TheSportDBApi.getTeamDetail(
-                                data.events[i].awayTeam
+                                event.awayTeam
                             )
                         ).await(),
                     TeamResponse::class.java
                 )
+                var homeBadge : String? = ""
+                var awayBadge : String? = ""
+
+                for (home in dataHome.teams){homeBadge = home.teamBadge}
+                for (home in dataAway.teams){awayBadge = home.teamBadge}
                 matchesList.add(
                     Event(
-                        data.events[i].id,
-                        data.events[i].eventName,
-                        data.events[i].homeTeam,
-                        data.events[i].awayTeam,
-                        if (data.events[i].homeScore == null) {
+                        event.id,
+                        event.eventName,
+                        event.homeTeam,
+                        event.awayTeam,
+                        if (event.homeScore == null) {
                             "-"
                         } else {
-                            data.events[i].homeScore
+                            event.homeScore
                         },
-                        if (data.events[i].awayScore == null) {
+                        if (event.awayScore == null) {
                             "-"
                         } else {
-                            data.events[i].awayScore
+                            event.awayScore
                         },
-                        dataHome.teams[0].teamBadge, //data.events[i].homeBadge,
-                        dataAway.teams[0].teamBadge, //data.events[i].awayBadge,
-                        data.events[i].dateEventLocal,
-                        data.events[i].timeLocal
+                        homeBadge, //event.homeBadge,
+                        awayBadge, //event.awayBadge,
+                        event.dateEventLocal,
+                        event.timeLocal
                     )
                 )
             }
@@ -92,12 +97,12 @@ class MatchListPresenter(
                     ).await(),
                 EventResponse::class.java
             )
-            for (i in 0 until data.events.size) {
+            for (event in data.events) {
                 val dataHome = gson.fromJson(
                     apiRepository
                         .doRequest(
                             TheSportDBApi.getTeamDetail(
-                                data.events[i].homeTeam
+                                event.homeTeam
                             )
                         ).await(),
                     TeamResponse::class.java
@@ -106,31 +111,36 @@ class MatchListPresenter(
                     apiRepository
                         .doRequest(
                             TheSportDBApi.getTeamDetail(
-                                data.events[i].awayTeam
+                                event.awayTeam
                             )
                         ).await(),
                     TeamResponse::class.java
                 )
+                var homeBadge : String? = ""
+                var awayBadge : String? = ""
+
+                for (home in dataHome.teams){homeBadge = home.teamBadge}
+                for (home in dataAway.teams){awayBadge = home.teamBadge}
                 matchesList.add(
                     Event(
-                        data.events[i].id,
-                        data.events[i].eventName,
-                        data.events[i].homeTeam,
-                        data.events[i].awayTeam,
-                        if (data.events[i].homeScore == null) {
+                        event.id,
+                        event.eventName,
+                        event.homeTeam,
+                        event.awayTeam,
+                        if (event.homeScore == null) {
                             "-"
                         } else {
-                            data.events[i].homeScore
+                            event.homeScore
                         },
-                        if (data.events[i].awayScore == null) {
+                        if (event.awayScore == null) {
                             "-"
                         } else {
-                            data.events[i].awayScore
+                            event.awayScore
                         },
-                        dataHome.teams[0].teamBadge, //data.events[i].homeBadge,
-                        dataAway.teams[0].teamBadge, //data.events[i].awayBadge,
-                        data.events[i].dateEventLocal,
-                        data.events[i].timeLocal
+                        homeBadge, //event.homeBadge,
+                        awayBadge, //event.awayBadge,
+                        event.dateEventLocal,
+                        event.timeLocal
                     )
                 )
             }
@@ -152,15 +162,15 @@ class MatchListPresenter(
                     ).await(),
                 EventSearchResponse::class.java
             )
-            for (i in 0 until data.event.size) {
-                if (data.event[i].sportCategory != "Soccer") {
+            for (event in data.event) {
+                if (event.sportCategory != "Soccer") {
                     continue
                 }
                 val dataHome = gson.fromJson(
                     apiRepository
                         .doRequest(
                             TheSportDBApi.getTeamDetail(
-                                data.event[i].homeTeam
+                                event.homeTeam
                             )
                         ).await(),
                     TeamResponse::class.java
@@ -169,31 +179,36 @@ class MatchListPresenter(
                     apiRepository
                         .doRequest(
                             TheSportDBApi.getTeamDetail(
-                                data.event[i].awayTeam
+                                event.awayTeam
                             )
                         ).await(),
                     TeamResponse::class.java
                 )
+                var homeBadge : String? = ""
+                var awayBadge : String? = ""
+
+                for (home in dataHome.teams){homeBadge = home.teamBadge}
+                for (home in dataAway.teams){awayBadge = home.teamBadge}
                 matchesList.add(
                     Event(
-                        data.event[i].id,
-                        data.event[i].eventName,
-                        data.event[i].homeTeam,
-                        data.event[i].awayTeam,
-                        if (data.event[i].homeScore == null) {
+                        event.id,
+                        event.eventName,
+                        event.homeTeam,
+                        event.awayTeam,
+                        if (event.homeScore == null) {
                             "-"
                         } else {
-                            data.event[i].homeScore
+                            event.homeScore
                         },
-                        if (data.event[i].awayScore == null) {
+                        if (event.awayScore == null) {
                             "-"
                         } else {
-                            data.event[i].awayScore
+                            event.awayScore
                         },
-                        dataHome.teams[0].teamBadge, //data.event[i].homeBadge,
-                        dataAway.teams[0].teamBadge, //data.event[i].awayBadge,
-                        data.event[i].dateEventLocal,
-                        data.event[i].timeLocal
+                        homeBadge, //event.homeBadge,
+                        awayBadge, //event.awayBadge,
+                        event.dateEventLocal,
+                        event.timeLocal
                     )
                 )
             }
@@ -207,22 +222,22 @@ class MatchListPresenter(
         view.showLoading()
         GlobalScope.launch(context.main) {
             matchesList.clear()
-            for (index in 0 until favourites.size) {
+            for (favourite in favourites) {
                 val data = gson.fromJson(
                     apiRepository
                         .doRequest(
                             TheSportDBApi.getMatchDetail(
-                                favourites[index].idEvent
+                                favourite.idEvent
                             )
                         ).await(),
                     EventResponse::class.java
                 )
-                for (i in 0 until data.events.size) {
+                for (event in data.events) {
                     val dataHome = gson.fromJson(
                         apiRepository
                             .doRequest(
                                 TheSportDBApi.getTeamDetail(
-                                    data.events[i].homeTeam
+                                    event.homeTeam
                                 )
                             ).await(),
                         TeamResponse::class.java
@@ -231,31 +246,37 @@ class MatchListPresenter(
                         apiRepository
                             .doRequest(
                                 TheSportDBApi.getTeamDetail(
-                                    data.events[i].awayTeam
+                                    event.awayTeam
                                 )
                             ).await(),
                         TeamResponse::class.java
                     )
+                    var homeBadge : String? = ""
+                    var awayBadge : String? = ""
+
+                    for (home in dataHome.teams){homeBadge = home.teamBadge}
+                    for (home in dataAway.teams){awayBadge = home.teamBadge}
+                    
                     matchesList.add(
                         Event(
-                            data.events[i].id,
-                            data.events[i].eventName,
-                            data.events[i].homeTeam,
-                            data.events[i].awayTeam,
-                            if (data.events[i].homeScore == null) {
+                            event.id,
+                            event.eventName,
+                            event.homeTeam,
+                            event.awayTeam,
+                            if (event.homeScore == null) {
                                 "-"
                             } else {
-                                data.events[i].homeScore
+                                event.homeScore
                             },
-                            if (data.events[i].awayScore == null) {
+                            if (event.awayScore == null) {
                                 "-"
                             } else {
-                                data.events[i].awayScore
+                                event.awayScore
                             },
-                            dataHome.teams[0].teamBadge, //data.events[i].homeBadge,
-                            dataAway.teams[0].teamBadge, //data.events[i].awayBadge,
-                            data.events[i].dateEventLocal,
-                            data.events[i].timeLocal
+                            homeBadge, //event.homeBadge,
+                            awayBadge, //event.awayBadge,
+                            event.dateEventLocal,
+                            event.timeLocal
                         )
                     )
                 }
