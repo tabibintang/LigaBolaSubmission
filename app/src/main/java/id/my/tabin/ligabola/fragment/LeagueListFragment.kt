@@ -39,7 +39,7 @@ class LeagueListFragment : Fragment(), AnkoLogger {
         initData()
 
         recycler_league_list.layoutManager = GridLayoutManager(context, 2)
-        adapter = RecyclerViewAdapter(context!!, items) {
+        adapter = RecyclerViewAdapter(items) {
             val toast = Toast.makeText(context, it.name, Toast.LENGTH_SHORT)
             toast.show()
             info("MainActivity: Item clicked")

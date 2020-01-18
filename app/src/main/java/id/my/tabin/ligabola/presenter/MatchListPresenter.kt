@@ -51,11 +51,15 @@ class MatchListPresenter(
                         ).await(),
                     TeamResponse::class.java
                 )
-                var homeBadge : String? = ""
-                var awayBadge : String? = ""
+                var homeBadge: String? = ""
+                var awayBadge: String? = ""
 
-                for (home in dataHome.teams){homeBadge = home.teamBadge}
-                for (home in dataAway.teams){awayBadge = home.teamBadge}
+                for (home in dataHome.teams) {
+                    homeBadge = home.teamBadge
+                }
+                for (home in dataAway.teams) {
+                    awayBadge = home.teamBadge
+                }
                 matchesList.add(
                     Event(
                         event.id,
@@ -116,11 +120,15 @@ class MatchListPresenter(
                         ).await(),
                     TeamResponse::class.java
                 )
-                var homeBadge : String? = ""
-                var awayBadge : String? = ""
+                var homeBadge: String? = ""
+                var awayBadge: String? = ""
 
-                for (home in dataHome.teams){homeBadge = home.teamBadge}
-                for (home in dataAway.teams){awayBadge = home.teamBadge}
+                for (home in dataHome.teams) {
+                    homeBadge = home.teamBadge
+                }
+                for (home in dataAway.teams) {
+                    awayBadge = home.teamBadge
+                }
                 matchesList.add(
                     Event(
                         event.id,
@@ -184,11 +192,15 @@ class MatchListPresenter(
                         ).await(),
                     TeamResponse::class.java
                 )
-                var homeBadge : String? = ""
-                var awayBadge : String? = ""
+                var homeBadge: String? = ""
+                var awayBadge: String? = ""
 
-                for (home in dataHome.teams){homeBadge = home.teamBadge}
-                for (home in dataAway.teams){awayBadge = home.teamBadge}
+                for (home in dataHome.teams) {
+                    homeBadge = home.teamBadge
+                }
+                for (home in dataAway.teams) {
+                    awayBadge = home.teamBadge
+                }
                 matchesList.add(
                     Event(
                         event.id,
@@ -251,12 +263,16 @@ class MatchListPresenter(
                             ).await(),
                         TeamResponse::class.java
                     )
-                    var homeBadge : String? = ""
-                    var awayBadge : String? = ""
+                    var homeBadge: String? = ""
+                    var awayBadge: String? = ""
 
-                    for (home in dataHome.teams){homeBadge = home.teamBadge}
-                    for (home in dataAway.teams){awayBadge = home.teamBadge}
-                    
+                    for (home in dataHome.teams) {
+                        homeBadge = home.teamBadge
+                    }
+                    for (home in dataAway.teams) {
+                        awayBadge = home.teamBadge
+                    }
+
                     matchesList.add(
                         Event(
                             event.id,

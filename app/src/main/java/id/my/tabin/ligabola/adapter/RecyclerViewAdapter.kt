@@ -14,7 +14,6 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.cardview.v7.cardView
 
 class RecyclerViewAdapter(
-    private val context: Context,
     private val items: List<League>,
     private val listener: (League) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {

@@ -9,10 +9,8 @@ import id.my.tabin.ligabola.fragment.NextMatchFragment
 import id.my.tabin.ligabola.fragment.PrevMatchFragment
 import id.my.tabin.ligabola.model.League
 
-class LeagueDetailPagerAdapter(fragmentManager: FragmentManager, league: League) :
+class LeagueDetailPagerAdapter(fragmentManager: FragmentManager, val league: League) :
     FragmentPagerAdapter(fragmentManager) {
-
-    val league = league
 
     private val pages = listOf(
         DetailLeagueFragment(),
@@ -20,9 +18,6 @@ class LeagueDetailPagerAdapter(fragmentManager: FragmentManager, league: League)
         PrevMatchFragment()
     )
 
-    //    override fun getItem(position: Int): Fragment {
-//        return pages[position]
-//    }
     override fun getItem(position: Int): Fragment {
         val bundle = Bundle()
         bundle.putParcelable("league", league)

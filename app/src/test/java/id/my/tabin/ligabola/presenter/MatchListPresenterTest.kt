@@ -9,14 +9,11 @@ import id.my.tabin.ligabola.model.Team
 import id.my.tabin.ligabola.response.EventResponse
 import id.my.tabin.ligabola.response.EventSearchResponse
 import id.my.tabin.ligabola.response.TeamResponse
-import id.my.tabin.ligabola.view.MatchDetailView
 import id.my.tabin.ligabola.view.MatchListView
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
@@ -48,7 +45,8 @@ class MatchListPresenterTest {
         val responseTeam = TeamResponse(teams)
 
         runBlocking {
-            Mockito.`when`(apiRepository.doRequest(ArgumentMatchers.anyString())).thenReturn(apiResponse)
+            Mockito.`when`(apiRepository.doRequest(ArgumentMatchers.anyString()))
+                .thenReturn(apiResponse)
             Mockito.`when`(apiResponse.await()).thenReturn("")
             Mockito.`when`(
                 gson.fromJson("", EventResponse::class.java)
@@ -73,7 +71,8 @@ class MatchListPresenterTest {
         val responseTeam = TeamResponse(teams)
 
         runBlocking {
-            Mockito.`when`(apiRepository.doRequest(ArgumentMatchers.anyString())).thenReturn(apiResponse)
+            Mockito.`when`(apiRepository.doRequest(ArgumentMatchers.anyString()))
+                .thenReturn(apiResponse)
             Mockito.`when`(apiResponse.await()).thenReturn("")
             Mockito.`when`(
                 gson.fromJson("", EventResponse::class.java)
@@ -98,7 +97,8 @@ class MatchListPresenterTest {
         val responseTeam = TeamResponse(teams)
 
         runBlocking {
-            Mockito.`when`(apiRepository.doRequest(ArgumentMatchers.anyString())).thenReturn(apiResponse)
+            Mockito.`when`(apiRepository.doRequest(ArgumentMatchers.anyString()))
+                .thenReturn(apiResponse)
             Mockito.`when`(apiResponse.await()).thenReturn("")
             Mockito.`when`(
                 gson.fromJson("", EventSearchResponse::class.java)
@@ -122,9 +122,10 @@ class MatchListPresenterTest {
         val responseEvent = EventResponse(events)
         val responseTeam = TeamResponse(teams)
 
-        favourites.add(Favourite(1,"602349"))
+        favourites.add(Favourite(1, "602349"))
         runBlocking {
-            Mockito.`when`(apiRepository.doRequest(ArgumentMatchers.anyString())).thenReturn(apiResponse)
+            Mockito.`when`(apiRepository.doRequest(ArgumentMatchers.anyString()))
+                .thenReturn(apiResponse)
             Mockito.`when`(apiResponse.await()).thenReturn("")
             Mockito.`when`(
                 gson.fromJson("", EventResponse::class.java)

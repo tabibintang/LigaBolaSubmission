@@ -3,7 +3,6 @@ package id.my.tabin.ligabola.presenter
 import com.google.gson.Gson
 import id.my.tabin.ligabola.api.ApiRepository
 import id.my.tabin.ligabola.api.TheSportDBApi
-import id.my.tabin.ligabola.model.League
 import id.my.tabin.ligabola.model.Team
 import id.my.tabin.ligabola.response.LeagueResponse
 import id.my.tabin.ligabola.response.TeamResponse
@@ -18,20 +17,20 @@ class MainPresenter(
     private val gson: Gson,
     private val context: CoroutineContextProvider = CoroutineContextProvider()
 ) {
-    fun getDetailLeague(league: String?) {
+    fun getDetailLeague(idLeague: String?) {
         GlobalScope.launch(context.main) {
             view.showLoading()
             val data = gson.fromJson(
                 apiRepository
                     .doRequest(
                         TheSportDBApi.getDetailLeague(
-                            league
+                            idLeague
                         )
                     ).await(),
                 LeagueResponse::class.java
             )
             var listTeam: List<Team> = emptyList()
-            var dataTeam:  TeamResponse = TeamResponse(listTeam)
+            var dataTeam: TeamResponse = TeamResponse(listTeam)
             for (league in data.leagues) {
                 dataTeam = gson.fromJson(
                     apiRepository

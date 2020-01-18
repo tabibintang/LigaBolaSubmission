@@ -4,19 +4,14 @@ import com.google.gson.Gson
 import id.my.tabin.ligabola.TestContextProvider
 import id.my.tabin.ligabola.api.ApiRepository
 import id.my.tabin.ligabola.model.Event
-import id.my.tabin.ligabola.model.League
 import id.my.tabin.ligabola.model.Team
 import id.my.tabin.ligabola.response.EventResponse
-import id.my.tabin.ligabola.response.LeagueResponse
 import id.my.tabin.ligabola.response.TeamResponse
-import id.my.tabin.ligabola.view.MainView
 import id.my.tabin.ligabola.view.MatchDetailView
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
@@ -38,6 +33,7 @@ class MatchDetailPresenterTest {
         MockitoAnnotations.initMocks(this)
         presenter = MatchDetailPresenter(view, apiRepository, gson, TestContextProvider())
     }
+
     @Test
     fun getMatchDetail() {
         val idEvent = "602349"
@@ -47,7 +43,8 @@ class MatchDetailPresenterTest {
         val responseTeam = TeamResponse(teams)
 
         runBlocking {
-            Mockito.`when`(apiRepository.doRequest(ArgumentMatchers.anyString())).thenReturn(apiResponse)
+            Mockito.`when`(apiRepository.doRequest(ArgumentMatchers.anyString()))
+                .thenReturn(apiResponse)
             Mockito.`when`(apiResponse.await()).thenReturn("")
             Mockito.`when`(
                 gson.fromJson("", EventResponse::class.java)
