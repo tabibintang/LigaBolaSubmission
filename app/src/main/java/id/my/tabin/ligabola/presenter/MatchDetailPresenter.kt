@@ -6,26 +6,28 @@ import id.my.tabin.ligabola.api.TheSportDBApi
 import id.my.tabin.ligabola.model.Event
 import id.my.tabin.ligabola.response.EventResponse
 import id.my.tabin.ligabola.response.TeamResponse
+import id.my.tabin.ligabola.support.CoroutineContextProvider
 import id.my.tabin.ligabola.view.MatchDetailView
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MatchDetailPresenter(
     private val view: MatchDetailView,
     private val apiRepository: ApiRepository,
-    private val gson: Gson
+    private val gson: Gson,
+    private val context: CoroutineContextProvider = CoroutineContextProvider()
 ) {
     private var matches: MutableList<Event> = mutableListOf()
     fun getMatchDetail(idEvent: String?) {
         view.showLoading()
-        doAsync {
+        GlobalScope.launch(context.main) {
             val data = gson.fromJson(
                 apiRepository
                     .doRequest(
                         TheSportDBApi.getMatchDetail(
                             idEvent
                         )
-                    ),
+                    ).await(),
                 EventResponse::class.java
             )
             for (i in 0 until data.events.size) {
@@ -35,7 +37,7 @@ class MatchDetailPresenter(
                             TheSportDBApi.getTeamDetail(
                                 data.events[i].homeTeam
                             )
-                        ),
+                        ).await(),
                     TeamResponse::class.java
                 )
                 val dataAway = gson.fromJson(
@@ -44,7 +46,7 @@ class MatchDetailPresenter(
                             TheSportDBApi.getTeamDetail(
                                 data.events[i].awayTeam
                             )
-                        ),
+                        ).await(),
                     TeamResponse::class.java
                 )
                 matches.add(
@@ -85,10 +87,8 @@ class MatchDetailPresenter(
                     )
                 )
             }
-            uiThread {
-                view.hideLoading()
-                view.showMatchDetail(matches)
-            }
+            view.hideLoading()
+            view.showMatchDetail(matches)
         }
     }
 }

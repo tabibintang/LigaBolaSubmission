@@ -54,7 +54,7 @@ class DetailLeagueFragment : Fragment(), MainView {
         presenter =
             MainPresenter(this, request, gson)
 
-        presenter.getDetailLeague(league?.id, league?.name)
+        presenter.getDetailLeague(league?.id)
         //presenter.getTeamList(league?.name)
 
 //        refresh_layout_detail.onRefresh {

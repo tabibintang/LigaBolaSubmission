@@ -8,26 +8,28 @@ import id.my.tabin.ligabola.model.Favourite
 import id.my.tabin.ligabola.response.EventResponse
 import id.my.tabin.ligabola.response.EventSearchResponse
 import id.my.tabin.ligabola.response.TeamResponse
+import id.my.tabin.ligabola.support.CoroutineContextProvider
 import id.my.tabin.ligabola.view.MatchListView
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MatchListPresenter(
     private val view: MatchListView,
     private val apiRepository: ApiRepository,
-    private val gson: Gson
+    private val gson: Gson,
+    private val context: CoroutineContextProvider = CoroutineContextProvider()
 ) {
     private var matchesList: MutableList<Event> = mutableListOf()
     fun getMatchNextList(league: String?) {
         view.showLoading()
-        doAsync {
+        GlobalScope.launch(context.main) {
             val data = gson.fromJson(
                 apiRepository
                     .doRequest(
                         TheSportDBApi.getNextMatch(
                             league
                         )
-                    ),
+                    ).await(),
                 EventResponse::class.java
             )
             for (i in 0 until data.events.size) {
@@ -37,7 +39,7 @@ class MatchListPresenter(
                             TheSportDBApi.getTeamDetail(
                                 data.events[i].homeTeam
                             )
-                        ),
+                        ).await(),
                     TeamResponse::class.java
                 )
                 val dataAway = gson.fromJson(
@@ -46,7 +48,7 @@ class MatchListPresenter(
                             TheSportDBApi.getTeamDetail(
                                 data.events[i].awayTeam
                             )
-                        ),
+                        ).await(),
                     TeamResponse::class.java
                 )
                 matchesList.add(
@@ -72,23 +74,22 @@ class MatchListPresenter(
                     )
                 )
             }
-            uiThread {
-                view.hideLoading()
-                view.showMatchList(matchesList)
-            }
+            view.hideLoading()
+            view.showMatchList(matchesList)
+
         }
     }
 
     fun getMatchPrevList(league: String?) {
         view.showLoading()
-        doAsync {
+        GlobalScope.launch(context.main) {
             val data = gson.fromJson(
                 apiRepository
                     .doRequest(
                         TheSportDBApi.getPrevMatch(
                             league
                         )
-                    ),
+                    ).await(),
                 EventResponse::class.java
             )
             for (i in 0 until data.events.size) {
@@ -98,7 +99,7 @@ class MatchListPresenter(
                             TheSportDBApi.getTeamDetail(
                                 data.events[i].homeTeam
                             )
-                        ),
+                        ).await(),
                     TeamResponse::class.java
                 )
                 val dataAway = gson.fromJson(
@@ -107,7 +108,7 @@ class MatchListPresenter(
                             TheSportDBApi.getTeamDetail(
                                 data.events[i].awayTeam
                             )
-                        ),
+                        ).await(),
                     TeamResponse::class.java
                 )
                 matchesList.add(
@@ -133,27 +134,26 @@ class MatchListPresenter(
                     )
                 )
             }
-            uiThread {
-                view.hideLoading()
-                view.showMatchList(matchesList)
-            }
+            view.hideLoading()
+            view.showMatchList(matchesList)
+
         }
     }
 
     fun getMatchSearchList(search: String?) {
         view.showLoading()
-        doAsync {
+        GlobalScope.launch(context.main) {
             val data = gson.fromJson(
                 apiRepository
                     .doRequest(
                         TheSportDBApi.getSearchMatch(
                             search
                         )
-                    ),
+                    ).await(),
                 EventSearchResponse::class.java
             )
             for (i in 0 until data.event.size) {
-                if(data.event[i].sportCategory != "Soccer"){
+                if (data.event[i].sportCategory != "Soccer") {
                     continue
                 }
                 val dataHome = gson.fromJson(
@@ -162,7 +162,7 @@ class MatchListPresenter(
                             TheSportDBApi.getTeamDetail(
                                 data.event[i].homeTeam
                             )
-                        ),
+                        ).await(),
                     TeamResponse::class.java
                 )
                 val dataAway = gson.fromJson(
@@ -171,7 +171,7 @@ class MatchListPresenter(
                             TheSportDBApi.getTeamDetail(
                                 data.event[i].awayTeam
                             )
-                        ),
+                        ).await(),
                     TeamResponse::class.java
                 )
                 matchesList.add(
@@ -197,16 +197,15 @@ class MatchListPresenter(
                     )
                 )
             }
-            uiThread {
-                view.hideLoading()
-                view.showMatchList(matchesList)
-            }
+            view.hideLoading()
+            view.showMatchList(matchesList)
+
         }
     }
 
     fun getMatchFavouriteList(favourites: List<Favourite>) {
         view.showLoading()
-        doAsync {
+        GlobalScope.launch(context.main) {
             matchesList.clear()
             for (index in 0 until favourites.size) {
                 val data = gson.fromJson(
@@ -215,7 +214,7 @@ class MatchListPresenter(
                             TheSportDBApi.getMatchDetail(
                                 favourites[index].idEvent
                             )
-                        ),
+                        ).await(),
                     EventResponse::class.java
                 )
                 for (i in 0 until data.events.size) {
@@ -225,7 +224,7 @@ class MatchListPresenter(
                                 TheSportDBApi.getTeamDetail(
                                     data.events[i].homeTeam
                                 )
-                            ),
+                            ).await(),
                         TeamResponse::class.java
                     )
                     val dataAway = gson.fromJson(
@@ -234,7 +233,7 @@ class MatchListPresenter(
                                 TheSportDBApi.getTeamDetail(
                                     data.events[i].awayTeam
                                 )
-                            ),
+                            ).await(),
                         TeamResponse::class.java
                     )
                     matchesList.add(
@@ -261,10 +260,8 @@ class MatchListPresenter(
                     )
                 }
             }
-            uiThread {
-                view.hideLoading()
-                view.showMatchList(matchesList)
-            }
+            view.hideLoading()
+            view.showMatchList(matchesList)
         }
     }
 }
