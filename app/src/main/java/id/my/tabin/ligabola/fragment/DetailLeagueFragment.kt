@@ -1,15 +1,20 @@
 package id.my.tabin.ligabola.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.constraint.Constraints.TAG
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import id.my.tabin.ligabola.R
+import id.my.tabin.ligabola.activity.DetailTeamActivity
 import id.my.tabin.ligabola.adapter.TeamRecyclerViewAdapter
 import id.my.tabin.ligabola.api.ApiRepository
 import id.my.tabin.ligabola.model.League
@@ -48,7 +53,14 @@ class DetailLeagueFragment : Fragment(), MainView {
         adapter = TeamRecyclerViewAdapter(
             teams,
             context!!
-        )
+        ){
+            val toast = Toast.makeText(context, it.teamName, Toast.LENGTH_SHORT)
+            toast.show()
+            Log.d(TAG, "Click: $it.id")
+            val intent = Intent(context, DetailTeamActivity::class.java)
+            intent.putExtra("team", it)
+            startActivity(intent)
+        }
         recycler_detail_list_team.adapter = adapter
 
         presenter =
@@ -68,7 +80,10 @@ class DetailLeagueFragment : Fragment(), MainView {
     }
 
     override fun hideLoading() {
-        progress_bar_detail.invisible()
+
+        if(progress_bar_detail != null) {
+            progress_bar_detail.invisible()
+        }
     }
 
     override fun showTeamList(data: List<Team>) {
@@ -79,8 +94,6 @@ class DetailLeagueFragment : Fragment(), MainView {
 
     override fun showDetailLeague(data: List<League>) {
         text_detail_name.text = data[0].name
-        //leagueDescription.text = tim.description
         data[0].badge!!.let { Picasso.get().load(it).fit().into(image_detail_league) }
     }
-
 }

@@ -7,25 +7,21 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import id.my.tabin.ligabola.R
-import id.my.tabin.ligabola.adapter.LeagueDetailPagerAdapter
-import id.my.tabin.ligabola.model.League
-import kotlinx.android.synthetic.main.activity_league_detail.*
+import id.my.tabin.ligabola.adapter.TeamDetailPagerAdapter
+import id.my.tabin.ligabola.model.Team
+import kotlinx.android.synthetic.main.activity_detail_team.*
 
-class LeagueDetailActivity : AppCompatActivity() {
+class DetailTeamActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_league_detail)
+        setContentView(R.layout.activity_detail_team)
 
         val intent = intent
-        val league = intent.getParcelableExtra<League>("league")
+        val team = intent.getParcelableExtra<Team>("team")
 
-        viewpager_container.adapter =
-            LeagueDetailPagerAdapter(
-                supportFragmentManager,
-                league
-            )
-        tabs_league_detail.setupWithViewPager(viewpager_container)
+        viewpager_team_container.adapter = TeamDetailPagerAdapter(supportFragmentManager, team)
+        tabs_team_detail.setupWithViewPager(viewpager_team_container)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

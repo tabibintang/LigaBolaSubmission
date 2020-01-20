@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LigaBola</string>
+    <string name="app_name">Liga Bola</string>
     <string-array name="league_id">
         <item>4328</item>
         <item>4334</item>

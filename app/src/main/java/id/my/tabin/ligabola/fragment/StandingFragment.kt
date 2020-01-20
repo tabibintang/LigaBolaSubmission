@@ -22,6 +22,7 @@ import id.my.tabin.ligabola.presenter.StandingPresenter
 import id.my.tabin.ligabola.support.invisible
 import id.my.tabin.ligabola.support.visible
 import id.my.tabin.ligabola.view.StandingListView
+import kotlinx.android.synthetic.main.fragment_next_match.*
 import kotlinx.android.synthetic.main.fragment_standings.*
 
 /**
@@ -78,7 +79,9 @@ class StandingFragment : Fragment(), StandingListView {
 
     override fun hideLoading() {
 
-        progress_bar_standing.invisible()
+        if(progress_bar_standing != null) {
+            progress_bar_standing.invisible()
+        }
     }
 
     override fun showTableList(data: List<Table>) {

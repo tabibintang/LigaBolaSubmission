@@ -76,7 +76,10 @@ class PrevMatchFragment : Fragment(), MatchListView {
     }
 
     override fun hideLoading() {
-        progress_bar_prev.invisible()
+
+        if (progress_bar_prev != null) {
+            progress_bar_prev.invisible()
+        }
     }
 
     override fun showMatchList(data: List<Event>) {

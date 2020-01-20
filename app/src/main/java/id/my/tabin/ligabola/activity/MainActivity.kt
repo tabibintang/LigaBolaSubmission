@@ -119,9 +119,15 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_search -> {
-            Toast.makeText(this, "Go to Search Page", Toast.LENGTH_SHORT).show()
+        R.id.action_search_match -> {
+            Toast.makeText(this, "Go to Search Match Page", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MatchSearchActivity::class.java)
+            startActivity(intent)
+            true
+        }
+        R.id.action_search_team -> {
+            Toast.makeText(this, "Go to Search Team Page", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, TeamSearchActivity::class.java)
             startActivity(intent)
             true
         }

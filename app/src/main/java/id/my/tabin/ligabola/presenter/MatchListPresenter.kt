@@ -83,9 +83,9 @@ class MatchListPresenter(
                     )
                 )
             }
-            view.hideLoading()
             view.showMatchList(matchesList)
 
+            view.hideLoading()
         }
     }
 

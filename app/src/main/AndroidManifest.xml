@@ -12,11 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MatchSearchActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:theme="@style/ThemeOverlay.AppCompat.NoActionBar"
-            android:screenOrientation="portrait"
+            android:name=".activity.DetailTeamActivity"
             android:parentActivityName=".activity.MainActivity"></activity>
+        <activity
+            android:name=".activity.TeamSearchActivity"
+            android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeOverlay.AppCompat.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activity.MatchSearchActivity"
+            android:parentActivityName=".activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeOverlay.AppCompat.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.DetailEventActivity"
             android:parentActivityName=".activity.MainActivity" />
