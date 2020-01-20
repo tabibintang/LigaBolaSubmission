@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import id.my.tabin.ligabola.fragment.DetailLeagueFragment
 import id.my.tabin.ligabola.fragment.NextMatchFragment
 import id.my.tabin.ligabola.fragment.PrevMatchFragment
+import id.my.tabin.ligabola.fragment.StandingFragment
 import id.my.tabin.ligabola.model.League
 
 class LeagueDetailPagerAdapter(fragmentManager: FragmentManager, val league: League) :
@@ -15,7 +16,8 @@ class LeagueDetailPagerAdapter(fragmentManager: FragmentManager, val league: Lea
     private val pages = listOf(
         DetailLeagueFragment(),
         NextMatchFragment(),
-        PrevMatchFragment()
+        PrevMatchFragment(),
+        StandingFragment()
     )
 
     override fun getItem(position: Int): Fragment {
@@ -41,6 +43,12 @@ class LeagueDetailPagerAdapter(fragmentManager: FragmentManager, val league: Lea
                 prevMatchFragment.arguments = bundle
                 return prevMatchFragment
             }
+            3 -> {
+                val standingsFragment =
+                    StandingFragment()
+                standingsFragment.arguments = bundle
+                return standingsFragment
+            }
             else -> throw Throwable()
         }
     }
@@ -53,7 +61,8 @@ class LeagueDetailPagerAdapter(fragmentManager: FragmentManager, val league: Lea
         return when (position) {
             0 -> "Detail"
             1 -> "Next Match"
-            else -> "Prev Match"
+            2 -> "Prev Match"
+            else -> "Standing"
         }
     }
 }

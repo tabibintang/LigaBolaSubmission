@@ -98,4 +98,10 @@
     <string name="title_subtitute">Subtitute</string>
     <string name="team_home">Team Home</string>
     <string name="team_away">Team Away</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="win">Win : 0</string>
+    <string name="draw">Draw : 0</string>
+    <string name="loss">Loss : 0</string>
 </resources>
