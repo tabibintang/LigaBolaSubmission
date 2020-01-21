@@ -100,8 +100,13 @@
     <string name="team_away">Team Away</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="win">Win : 0</string>
     <string name="draw">Draw : 0</string>
     <string name="loss">Loss : 0</string>
+    <string name="stadium">Stadium</string>
+    <string name="description">Description</string>
+    <string name="website">Website</string>
+    <string name="team_name">Team Name</string>
+    <string name="favorite_event">Favourite Event</string>
+    <string name="favorite_team">Favourite Team</string>
 </resources>

@@ -18,7 +18,7 @@ import id.my.tabin.ligabola.adapter.MatchRecyclerViewAdapter
 import id.my.tabin.ligabola.api.ApiRepository
 import id.my.tabin.ligabola.helper.database
 import id.my.tabin.ligabola.model.Event
-import id.my.tabin.ligabola.model.Favourite
+import id.my.tabin.ligabola.model.FavouriteEvent
 import id.my.tabin.ligabola.presenter.MatchListPresenter
 import id.my.tabin.ligabola.support.invisible
 import id.my.tabin.ligabola.support.visible
@@ -32,7 +32,7 @@ import org.jetbrains.anko.support.v4.onRefresh
  * A simple [Fragment] subclass.
  */
 class FavouriteEventFragment : Fragment(), MatchListView {
-    private var favourites: MutableList<Favourite> = mutableListOf()
+    private var favourites: MutableList<FavouriteEvent> = mutableListOf()
     private lateinit var adapter: MatchRecyclerViewAdapter
     private var events: MutableList<Event> = mutableListOf()
     private lateinit var presenter: MatchListPresenter
@@ -86,8 +86,8 @@ class FavouriteEventFragment : Fragment(), MatchListView {
     private fun showFavourite() {
         favourites.clear()
         context?.database?.use {
-            val result = select(Favourite.TABLE_FAVOURITE)
-            val favourite = result.parseList(classParser<Favourite>())
+            val result = select(FavouriteEvent.TABLE_FAVOURITE_EVENT)
+            val favourite = result.parseList(classParser<FavouriteEvent>())
             favourites.addAll(favourite)
         }
     }

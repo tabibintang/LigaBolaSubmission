@@ -2,7 +2,6 @@ package id.my.tabin.ligabola.fragment
 
 
 import android.content.ContentValues
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -12,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.Gson
-
 import id.my.tabin.ligabola.R
 import id.my.tabin.ligabola.adapter.TableRecycleViewAdapter
 import id.my.tabin.ligabola.api.ApiRepository
@@ -22,7 +20,6 @@ import id.my.tabin.ligabola.presenter.StandingPresenter
 import id.my.tabin.ligabola.support.invisible
 import id.my.tabin.ligabola.support.visible
 import id.my.tabin.ligabola.view.StandingListView
-import kotlinx.android.synthetic.main.fragment_next_match.*
 import kotlinx.android.synthetic.main.fragment_standings.*
 
 /**
@@ -79,7 +76,7 @@ class StandingFragment : Fragment(), StandingListView {
 
     override fun hideLoading() {
 
-        if(progress_bar_standing != null) {
+        if (progress_bar_standing != null) {
             progress_bar_standing.invisible()
         }
     }

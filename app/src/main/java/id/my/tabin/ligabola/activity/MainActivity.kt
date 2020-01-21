@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import id.my.tabin.ligabola.R
 import id.my.tabin.ligabola.fragment.FavouriteEventFragment
+import id.my.tabin.ligabola.fragment.FavouriteTeamFragment
 import id.my.tabin.ligabola.fragment.LeagueListFragment
 import id.my.tabin.ligabola.model.League
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,22 +24,36 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.teams -> {
+                R.id.league -> {
                     val toast =
                         Toast.makeText(applicationContext, "List League", Toast.LENGTH_SHORT)
                     toast.show()
                     loadLeagueFragment(savedInstanceState)
                 }
-                R.id.favorites -> {
+                R.id.favorite_event -> {
                     val toast =
-                        Toast.makeText(applicationContext, "List Favourite", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            applicationContext,
+                            "List Favourite Event",
+                            Toast.LENGTH_SHORT
+                        )
                     toast.show()
-                    loadFavoritesFragment(savedInstanceState)
+                    loadFavoriteEventFragment(savedInstanceState)
+                }
+                R.id.favorite_team -> {
+                    val toast =
+                        Toast.makeText(
+                            applicationContext,
+                            "List Favourite Team",
+                            Toast.LENGTH_SHORT
+                        )
+                    toast.show()
+                    loadFavoriteTeamFragment(savedInstanceState)
                 }
             }
             true
         }
-        bottom_navigation.selectedItemId = R.id.teams
+        bottom_navigation.selectedItemId = R.id.league
     }
 
     private fun initData() {
@@ -60,31 +75,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
         image.recycle()
 
-
     }
-
-//    private fun showRecyclerList() {
-//        relativeLayout {
-//            lparams(width = matchParent, height = matchParent)
-//            padding = dip(16)
-//            recyclerView {
-//                lparams(width = matchParent, height = matchParent)
-//                id = R.id.league_list
-//                layoutManager = GridLayoutManager(this@MainActivity, 2)
-//                adapter = RecyclerViewAdapter(
-//                    this@MainActivity,
-//                    items
-//                ) {
-//                    val toast = Toast.makeText(applicationContext, it.name, Toast.LENGTH_SHORT)
-//                    toast.show()
-//                    info("MainActivity: Item clicked")
-//                    debug("MainActivity: Name=" + it.name)
-//                    debug("MainActivity: Description=" + it.description)
-//                    startActivity<LeagueDetailActivity>("league" to it)
-//                }
-//            }
-//        }
-//    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
@@ -105,7 +96,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    private fun loadFavoritesFragment(savedInstanceState: Bundle?) {
+    private fun loadFavoriteEventFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
@@ -113,6 +104,19 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     R.id.main_container,
                     FavouriteEventFragment(),
                     FavouriteEventFragment::class.java.simpleName
+                )
+                .commit()
+        }
+    }
+
+    private fun loadFavoriteTeamFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.main_container,
+                    FavouriteTeamFragment(),
+                    FavouriteTeamFragment::class.java.simpleName
                 )
                 .commit()
         }

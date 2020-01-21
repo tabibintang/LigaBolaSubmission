@@ -12,13 +12,16 @@ object TheSportDBApi {
         return BASE_URL + "api/v1/json/$TSDB_API_KEY/search_all_teams.php?l=" + league
     }
 
-    fun getTeamDetail(teamName: String?): String {
+    fun getSearchTeamByName(teamName: String?): String {
         return BASE_URL + "api/v1/json/$TSDB_API_KEY/searchteams.php?t=" + teamName
+    }
+
+    fun getDetailTeamById(teamId: String?): String {
+        return BASE_URL + "api/v1/json/$TSDB_API_KEY/lookupteam.php?id=" + teamId
     }
 
     fun getNextMatch(idLeague: String?): String {
         return BASE_URL + "api/v1/json/$TSDB_API_KEY/eventsnextleague.php?id=" + idLeague
-
     }
 
     fun getPrevMatch(idLeague: String?): String {
@@ -33,8 +36,13 @@ object TheSportDBApi {
         return BASE_URL + "api/v1/json/$TSDB_API_KEY/lookupevent.php?id=" + idEvent
     }
 
-    fun getStandingList(idLeague: String?):String{
+    fun getStandingList(idLeague: String?): String {
         return BASE_URL + "api/v1/json/$TSDB_API_KEY/lookuptable.php?l=" + idLeague
     }
+
+    fun getTeamNextMatchList(idTeam: String?): String {
+        return BASE_URL + "api/v1/json/$TSDB_API_KEY/eventsnext.php?id=" + idTeam
+    }
+
 
 }

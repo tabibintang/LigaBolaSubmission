@@ -14,7 +14,7 @@ import id.my.tabin.ligabola.R
 import id.my.tabin.ligabola.api.ApiRepository
 import id.my.tabin.ligabola.helper.database
 import id.my.tabin.ligabola.model.Event
-import id.my.tabin.ligabola.model.Favourite
+import id.my.tabin.ligabola.model.FavouriteEvent
 import id.my.tabin.ligabola.presenter.MatchDetailPresenter
 import id.my.tabin.ligabola.support.invisible
 import id.my.tabin.ligabola.support.visible
@@ -131,8 +131,8 @@ class DetailEventActivity : AppCompatActivity(),
         try {
             database.use {
                 insert(
-                    Favourite.TABLE_FAVOURITE,
-                    Favourite.ID_EVENT to idEvent
+                    FavouriteEvent.TABLE_FAVOURITE_EVENT,
+                    FavouriteEvent.ID_EVENT to idEvent
                 )
             }
             Toast.makeText(this, "Added to Favourite", Toast.LENGTH_SHORT).show()
@@ -147,7 +147,7 @@ class DetailEventActivity : AppCompatActivity(),
         try {
             database.use {
                 delete(
-                    Favourite.TABLE_FAVOURITE, "(ID_EVENT = {id})",
+                    FavouriteEvent.TABLE_FAVOURITE_EVENT, "(ID_EVENT = {id})",
                     "id" to idEvent
                 )
             }
@@ -169,12 +169,12 @@ class DetailEventActivity : AppCompatActivity(),
 
     private fun favouriteState() {
         database.use {
-            val result = select(Favourite.TABLE_FAVOURITE)
+            val result = select(FavouriteEvent.TABLE_FAVOURITE_EVENT)
                 .whereArgs(
                     "(ID_EVENT = {id})",
                     "id" to idEvent
                 )
-            val favorite = result.parseList(classParser<Favourite>())
+            val favorite = result.parseList(classParser<FavouriteEvent>())
             if (!favorite.isEmpty()) isFavourite = true
             setFavourite()
         }

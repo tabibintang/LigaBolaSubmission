@@ -12,44 +12,47 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.Gson
-import com.squareup.picasso.Picasso
+
 import id.my.tabin.ligabola.R
 import id.my.tabin.ligabola.activity.DetailTeamActivity
 import id.my.tabin.ligabola.adapter.TeamRecyclerViewAdapter
 import id.my.tabin.ligabola.api.ApiRepository
-import id.my.tabin.ligabola.model.League
+import id.my.tabin.ligabola.helper.database
+import id.my.tabin.ligabola.model.FavouriteTeam
 import id.my.tabin.ligabola.model.Team
-import id.my.tabin.ligabola.presenter.MainPresenter
+import id.my.tabin.ligabola.presenter.TeamListPresenter
 import id.my.tabin.ligabola.support.invisible
 import id.my.tabin.ligabola.support.visible
-import id.my.tabin.ligabola.view.MainView
-import kotlinx.android.synthetic.main.fragment_detail_league.*
+import id.my.tabin.ligabola.view.TeamListView
+import kotlinx.android.synthetic.main.fragment_favourite_team.*
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.select
+import org.jetbrains.anko.support.v4.onRefresh
 
 /**
  * A simple [Fragment] subclass.
  */
-class DetailLeagueFragment : Fragment(), MainView {
-
-    private var teams: MutableList<Team> = mutableListOf()
-    private lateinit var presenter: MainPresenter
+class FavouriteTeamFragment : Fragment(), TeamListView {
+    private var favourites: MutableList<FavouriteTeam> = mutableListOf()
     private lateinit var adapter: TeamRecyclerViewAdapter
-
+    private var teams: MutableList<Team> = mutableListOf()
+    private lateinit var presenter: TeamListPresenter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_league, container, false)
+        return inflater.inflate(R.layout.fragment_favourite_team, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val league = arguments?.getParcelable<League>("league")
 
         val request = ApiRepository()
         val gson = Gson()
 
-        recycler_detail_list_team.layoutManager = LinearLayoutManager(context)
+        recycler_favourite_team.layoutManager = LinearLayoutManager(context)
+        showFavourite()
         adapter = TeamRecyclerViewAdapter(
             teams,
             context!!
@@ -61,39 +64,46 @@ class DetailLeagueFragment : Fragment(), MainView {
             intent.putExtra("team", it)
             startActivity(intent)
         }
-        recycler_detail_list_team.adapter = adapter
+        recycler_favourite_team.adapter = adapter
 
-        presenter =
-            MainPresenter(this, request, gson)
+        presenter = TeamListPresenter(
+            this,
+            request,
+            gson
+        )
+        presenter.getFavouriteTeamList(favourites)
+        swipe_refresh_team_favourite_layout.onRefresh {
+            showFavourite()
+            presenter.getFavouriteTeamList(favourites)
+        }
+    }
 
-        presenter.getDetailLeague(league?.id)
-        //presenter.getTeamList(league?.name)
+    override fun onResume() {
+        super.onResume()
+        showFavourite()
+    }
 
-//        refresh_layout_detail.onRefresh {
-//            presenter.getDetailLeague(league?.id,league?.name)
-//        }
-
+    private fun showFavourite() {
+        favourites.clear()
+        context?.database?.use {
+            val result = select(FavouriteTeam.TABLE_FAVOURITE_TEAM)
+            val favourite = result.parseList(classParser<FavouriteTeam>())
+            favourites.addAll(favourite)
+        }
     }
 
     override fun showLoading() {
-        progress_bar_detail.visible()
+        progress_bar_favourite_team.visible()
     }
 
     override fun hideLoading() {
-
-        if (progress_bar_detail != null) {
-            progress_bar_detail.invisible()
-        }
+        progress_bar_favourite_team.invisible()
     }
 
     override fun showTeamList(data: List<Team>) {
         teams.clear()
         teams.addAll(data)
         adapter.notifyDataSetChanged()
-    }
-
-    override fun showDetailLeague(data: List<League>) {
-        text_detail_name.text = data[0].name
-        data[0].badge!!.let { Picasso.get().load(it).fit().into(image_detail_league) }
+        swipe_refresh_team_favourite_layout.isRefreshing = false
     }
 }

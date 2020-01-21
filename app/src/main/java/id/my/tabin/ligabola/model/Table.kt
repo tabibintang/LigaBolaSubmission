@@ -16,4 +16,5 @@ data class Table(
     val draw: String? = null,
     @SerializedName("loss")
     val loss: String? = null,
-    val teamBadge: String? = null) : Parcelable
+    val teamBadge: String? = null
+) : Parcelable

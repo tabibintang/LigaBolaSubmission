@@ -2,16 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/teams"
+        android:id="@+id/league"
         android:enabled="true"
         android:title="@string/leagues"
         android:icon="@drawable/ic_teams"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/favorites"
+        android:id="@+id/favorite_event"
         android:enabled="true"
         android:icon="@drawable/ic_favorites"
-        android:title="@string/favorites"
+        android:title="@string/favorite_event"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/favorite_team"
+        android:enabled="true"
+        android:icon="@drawable/ic_favorites"
+        android:title="@string/favorite_team"
         app:showAsAction="ifRoom" />
 </menu>

@@ -5,14 +5,14 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import id.my.tabin.ligabola.fragment.DetailTeamFragment
-import id.my.tabin.ligabola.fragment.PlayerListFragment
+import id.my.tabin.ligabola.fragment.PlayerMatchListFragment
 import id.my.tabin.ligabola.model.Team
 
 class TeamDetailPagerAdapter(fragmentManager: FragmentManager, val team: Team) :
     FragmentPagerAdapter(fragmentManager) {
     private val pages = listOf(
         DetailTeamFragment(),
-        PlayerListFragment()
+        PlayerMatchListFragment()
     )
 
     override fun getItem(position: Int): Fragment {
@@ -27,7 +27,7 @@ class TeamDetailPagerAdapter(fragmentManager: FragmentManager, val team: Team) :
             }
             1 -> {
                 val playerListFragment =
-                    PlayerListFragment()
+                    PlayerMatchListFragment()
                 playerListFragment.arguments = bundle
                 return playerListFragment
             }
@@ -42,7 +42,7 @@ class TeamDetailPagerAdapter(fragmentManager: FragmentManager, val team: Team) :
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
             0 -> "Detail"
-            else -> "Player"
+            else -> "Next Event"
         }
     }
 }

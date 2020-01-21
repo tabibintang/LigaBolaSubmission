@@ -1,7 +1,7 @@
 package id.my.tabin.ligabola.fragment
 
 
-import android.content.ContentValues.TAG
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -17,17 +17,17 @@ import id.my.tabin.ligabola.activity.DetailEventActivity
 import id.my.tabin.ligabola.adapter.MatchRecyclerViewAdapter
 import id.my.tabin.ligabola.api.ApiRepository
 import id.my.tabin.ligabola.model.Event
-import id.my.tabin.ligabola.model.League
+import id.my.tabin.ligabola.model.Team
 import id.my.tabin.ligabola.presenter.MatchListPresenter
 import id.my.tabin.ligabola.support.invisible
 import id.my.tabin.ligabola.support.visible
 import id.my.tabin.ligabola.view.MatchListView
-import kotlinx.android.synthetic.main.fragment_next_match.*
+import kotlinx.android.synthetic.main.fragment_team_nextmatch_list.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class NextMatchFragment : Fragment(), MatchListView {
+class PlayerMatchListFragment : Fragment(), MatchListView {
 
     private var events: MutableList<Event> = mutableListOf()
     private lateinit var presenter: MatchListPresenter
@@ -37,47 +37,47 @@ class NextMatchFragment : Fragment(), MatchListView {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_next_match, container, false)
+        return inflater.inflate(R.layout.fragment_team_nextmatch_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val league = arguments?.getParcelable<League>("league")
+        val team = arguments?.getParcelable<Team>("team")
 
         val request = ApiRepository()
         val gson = Gson()
 
-        recycler_next_list_match.layoutManager = LinearLayoutManager(context)
+        recycler_team_next_match.layoutManager = LinearLayoutManager(context)
         adapter = MatchRecyclerViewAdapter(
             events,
             context!!
         ) {
             val toast = Toast.makeText(context, it.eventName, Toast.LENGTH_SHORT)
             toast.show()
-            Log.d(TAG, "Click: $it.id")
+            Log.d(ContentValues.TAG, "Click: $it.id")
             val intent = Intent(context, DetailEventActivity::class.java)
             intent.putExtra("id_match", it.id)
             startActivity(intent)
             //startActivity<DetailEventActivity>("id_match" to it.id )
         }
-        recycler_next_list_match.adapter = adapter
+        recycler_team_next_match.adapter = adapter
 
         presenter = MatchListPresenter(
             this,
             request,
             gson
         )
-        presenter.getMatchNextList(league?.id)
+        presenter.getTeamNextMatchList(team?.teamId)
 
     }
 
     override fun showLoading() {
-        progress_bar_next.visible()
+        progress_bar_team_next.visible()
     }
 
     override fun hideLoading() {
-        if (progress_bar_next != null) {
-            progress_bar_next.invisible()
+        if (progress_bar_team_next != null) {
+            progress_bar_team_next.invisible()
         }
     }
 

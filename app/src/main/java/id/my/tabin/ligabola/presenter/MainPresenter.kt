@@ -22,7 +22,7 @@ class MainPresenter(
             view.showLoading()
             val data = gson.fromJson(
                 apiRepository
-                    .doRequest(
+                    .doRequestAsync(
                         TheSportDBApi.getDetailLeague(
                             idLeague
                         )
@@ -34,7 +34,7 @@ class MainPresenter(
             for (league in data.leagues) {
                 dataTeam = gson.fromJson(
                     apiRepository
-                        .doRequest(
+                        .doRequestAsync(
                             TheSportDBApi.getTeams(
                                 league.name
                             )

@@ -23,7 +23,7 @@ class MatchDetailPresenter(
         GlobalScope.launch(context.main) {
             val data = gson.fromJson(
                 apiRepository
-                    .doRequest(
+                    .doRequestAsync(
                         TheSportDBApi.getMatchDetail(
                             idEvent
                         )
@@ -33,8 +33,8 @@ class MatchDetailPresenter(
             for (event in data.events) {
                 val dataHome = gson.fromJson(
                     apiRepository
-                        .doRequest(
-                            TheSportDBApi.getTeamDetail(
+                        .doRequestAsync(
+                            TheSportDBApi.getSearchTeamByName(
                                 event.homeTeam
                             )
                         ).await(),
@@ -42,8 +42,8 @@ class MatchDetailPresenter(
                 )
                 val dataAway = gson.fromJson(
                     apiRepository
-                        .doRequest(
-                            TheSportDBApi.getTeamDetail(
+                        .doRequestAsync(
+                            TheSportDBApi.getSearchTeamByName(
                                 event.awayTeam
                             )
                         ).await(),
@@ -53,10 +53,10 @@ class MatchDetailPresenter(
                 var awayBadge: String? = ""
 
                 for (home in dataHome.teams) {
-                    homeBadge = home.teamBadge
+                    homeBadge = home.teamBadge + "/preview"
                 }
                 for (home in dataAway.teams) {
-                    awayBadge = home.teamBadge
+                    awayBadge = home.teamBadge + "/preview"
                 }
                 matches.add(
                     Event(

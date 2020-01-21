@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import id.my.tabin.ligabola.api.ApiRepository
 import id.my.tabin.ligabola.api.TheSportDBApi
 import id.my.tabin.ligabola.model.Event
-import id.my.tabin.ligabola.model.Favourite
+import id.my.tabin.ligabola.model.FavouriteEvent
 import id.my.tabin.ligabola.response.EventResponse
 import id.my.tabin.ligabola.response.EventSearchResponse
 import id.my.tabin.ligabola.response.TeamResponse
@@ -25,7 +25,7 @@ class MatchListPresenter(
         GlobalScope.launch(context.main) {
             val data = gson.fromJson(
                 apiRepository
-                    .doRequest(
+                    .doRequestAsync(
                         TheSportDBApi.getNextMatch(
                             league
                         )
@@ -35,8 +35,8 @@ class MatchListPresenter(
             for (event in data.events) {
                 val dataHome = gson.fromJson(
                     apiRepository
-                        .doRequest(
-                            TheSportDBApi.getTeamDetail(
+                        .doRequestAsync(
+                            TheSportDBApi.getSearchTeamByName(
                                 event.homeTeam
                             )
                         ).await(),
@@ -44,8 +44,8 @@ class MatchListPresenter(
                 )
                 val dataAway = gson.fromJson(
                     apiRepository
-                        .doRequest(
-                            TheSportDBApi.getTeamDetail(
+                        .doRequestAsync(
+                            TheSportDBApi.getSearchTeamByName(
                                 event.awayTeam
                             )
                         ).await(),
@@ -55,10 +55,10 @@ class MatchListPresenter(
                 var awayBadge: String? = ""
 
                 for (home in dataHome.teams) {
-                    homeBadge = home.teamBadge
+                    homeBadge = home.teamBadge + "/preview"
                 }
                 for (home in dataAway.teams) {
-                    awayBadge = home.teamBadge
+                    awayBadge = home.teamBadge + "/preview"
                 }
                 matchesList.add(
                     Event(
@@ -94,7 +94,7 @@ class MatchListPresenter(
         GlobalScope.launch(context.main) {
             val data = gson.fromJson(
                 apiRepository
-                    .doRequest(
+                    .doRequestAsync(
                         TheSportDBApi.getPrevMatch(
                             league
                         )
@@ -104,8 +104,8 @@ class MatchListPresenter(
             for (event in data.events) {
                 val dataHome = gson.fromJson(
                     apiRepository
-                        .doRequest(
-                            TheSportDBApi.getTeamDetail(
+                        .doRequestAsync(
+                            TheSportDBApi.getSearchTeamByName(
                                 event.homeTeam
                             )
                         ).await(),
@@ -113,8 +113,8 @@ class MatchListPresenter(
                 )
                 val dataAway = gson.fromJson(
                     apiRepository
-                        .doRequest(
-                            TheSportDBApi.getTeamDetail(
+                        .doRequestAsync(
+                            TheSportDBApi.getSearchTeamByName(
                                 event.awayTeam
                             )
                         ).await(),
@@ -124,10 +124,10 @@ class MatchListPresenter(
                 var awayBadge: String? = ""
 
                 for (home in dataHome.teams) {
-                    homeBadge = home.teamBadge
+                    homeBadge = home.teamBadge + "/preview"
                 }
                 for (home in dataAway.teams) {
-                    awayBadge = home.teamBadge
+                    awayBadge = home.teamBadge + "/preview"
                 }
                 matchesList.add(
                     Event(
@@ -163,7 +163,7 @@ class MatchListPresenter(
         GlobalScope.launch(context.main) {
             val data = gson.fromJson(
                 apiRepository
-                    .doRequest(
+                    .doRequestAsync(
                         TheSportDBApi.getSearchMatch(
                             search
                         )
@@ -176,8 +176,8 @@ class MatchListPresenter(
                 }
                 val dataHome = gson.fromJson(
                     apiRepository
-                        .doRequest(
-                            TheSportDBApi.getTeamDetail(
+                        .doRequestAsync(
+                            TheSportDBApi.getSearchTeamByName(
                                 event.homeTeam
                             )
                         ).await(),
@@ -185,8 +185,8 @@ class MatchListPresenter(
                 )
                 val dataAway = gson.fromJson(
                     apiRepository
-                        .doRequest(
-                            TheSportDBApi.getTeamDetail(
+                        .doRequestAsync(
+                            TheSportDBApi.getSearchTeamByName(
                                 event.awayTeam
                             )
                         ).await(),
@@ -196,10 +196,10 @@ class MatchListPresenter(
                 var awayBadge: String? = ""
 
                 for (home in dataHome.teams) {
-                    homeBadge = home.teamBadge
+                    homeBadge = home.teamBadge + "/preview"
                 }
                 for (home in dataAway.teams) {
-                    awayBadge = home.teamBadge
+                    awayBadge = home.teamBadge + "/preview"
                 }
                 matchesList.add(
                     Event(
@@ -230,14 +230,84 @@ class MatchListPresenter(
         }
     }
 
-    fun getMatchFavouriteList(favourites: List<Favourite>) {
+
+    fun getTeamNextMatchList(idTeam: String?) {
+        view.showLoading()
+        GlobalScope.launch(context.main) {
+            val data = gson.fromJson(
+                apiRepository
+                    .doRequestAsync(
+                        TheSportDBApi.getTeamNextMatchList(
+                            idTeam
+                        )
+                    ).await(),
+                EventResponse::class.java
+            )
+            for (event in data.events) {
+                val dataHome = gson.fromJson(
+                    apiRepository
+                        .doRequestAsync(
+                            TheSportDBApi.getSearchTeamByName(
+                                event.homeTeam
+                            )
+                        ).await(),
+                    TeamResponse::class.java
+                )
+                val dataAway = gson.fromJson(
+                    apiRepository
+                        .doRequestAsync(
+                            TheSportDBApi.getSearchTeamByName(
+                                event.awayTeam
+                            )
+                        ).await(),
+                    TeamResponse::class.java
+                )
+                var homeBadge: String? = ""
+                var awayBadge: String? = ""
+
+                for (home in dataHome.teams) {
+                    homeBadge = home.teamBadge + "/preview"
+                }
+                for (home in dataAway.teams) {
+                    awayBadge = home.teamBadge + "/preview"
+                }
+                matchesList.add(
+                    Event(
+                        event.id,
+                        event.eventName,
+                        event.homeTeam,
+                        event.awayTeam,
+                        if (event.homeScore == null) {
+                            "-"
+                        } else {
+                            event.homeScore
+                        },
+                        if (event.awayScore == null) {
+                            "-"
+                        } else {
+                            event.awayScore
+                        },
+                        homeBadge, //event.homeBadge,
+                        awayBadge, //event.awayBadge,
+                        event.dateEventLocal,
+                        event.timeLocal
+                    )
+                )
+            }
+            view.hideLoading()
+            view.showMatchList(matchesList)
+
+        }
+    }
+
+    fun getMatchFavouriteList(favourites: List<FavouriteEvent>) {
         view.showLoading()
         GlobalScope.launch(context.main) {
             matchesList.clear()
             for (favourite in favourites) {
                 val data = gson.fromJson(
                     apiRepository
-                        .doRequest(
+                        .doRequestAsync(
                             TheSportDBApi.getMatchDetail(
                                 favourite.idEvent
                             )
@@ -247,8 +317,8 @@ class MatchListPresenter(
                 for (event in data.events) {
                     val dataHome = gson.fromJson(
                         apiRepository
-                            .doRequest(
-                                TheSportDBApi.getTeamDetail(
+                            .doRequestAsync(
+                                TheSportDBApi.getSearchTeamByName(
                                     event.homeTeam
                                 )
                             ).await(),
@@ -256,8 +326,8 @@ class MatchListPresenter(
                     )
                     val dataAway = gson.fromJson(
                         apiRepository
-                            .doRequest(
-                                TheSportDBApi.getTeamDetail(
+                            .doRequestAsync(
+                                TheSportDBApi.getSearchTeamByName(
                                     event.awayTeam
                                 )
                             ).await(),
@@ -267,10 +337,10 @@ class MatchListPresenter(
                     var awayBadge: String? = ""
 
                     for (home in dataHome.teams) {
-                        homeBadge = home.teamBadge
+                        homeBadge = home.teamBadge + "/preview"
                     }
                     for (home in dataAway.teams) {
-                        awayBadge = home.teamBadge
+                        awayBadge = home.teamBadge + "/preview"
                     }
 
                     matchesList.add(
